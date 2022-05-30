@@ -25,6 +25,11 @@ SPA with Vue.js, Apollo Client, GraphQL
 * Open a terminal, navigate to the `server` directory and run `npm install`
 * Open another terminal, navigate to the `client` directory and run `npm install`
 
+### Fill database
+
+In the terminal at the root of the `server` directory:  
+* Run `npx sequelize db:migrate`  
+
 ### Executing program
 
 In each terminal:  
