@@ -29,6 +29,7 @@ SPA with Vue.js, Apollo Client, GraphQL
 
 In the terminal at the root of the `server` directory:  
 * Run `npx sequelize db:migrate`  
+* Then run `npx sequelize db:seed:all`
 
 ### Executing program
 
