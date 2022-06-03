@@ -2,18 +2,20 @@ const { gql } = require('apollo-server');
 const { readdirSync, readFileSync } = require('fs');
 const dirname = __dirname + '/schema/';
 const schemaFiles = readdirSync(dirname);
-let schema = '';
 
+let schema = "";
 schemaFiles.forEach(file => {
-  schema += readFileSync(dirname + file).toString() + '\n';
+  schema += schema.concat('\n', readFileSync(dirname + file).toString());
 });
 
 const typeDefs = gql`
-  ${schema}
-  
   type Query {
-    user(id: ID!): User!
+    _empty: String
   }
+  type Mutation {
+    _empty: String
+  }
+  ${schema}
 `;
 
 module.exports = typeDefs;

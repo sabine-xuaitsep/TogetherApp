@@ -1,12 +1,17 @@
-const users = [
-  { id: 1, name: "John" },
-  { id: 2, name: "Jack" }
-];
+const { readdirSync } = require('fs');
+const dirname = __dirname + '/resolvers/';
+const resolversFiles = readdirSync(dirname);
 
 const resolvers = {
-  Query: {
-    user: (parent, { id }) => users.find(user => user.id == id)
-  },
+  Query: {},
+  Mutation: {},
 };
- 
+
+resolversFiles.forEach(file => {
+  const path = `./resolvers/${file}`;
+  const { Query, Mutation } = require(path);
+  Object.assign(resolvers.Query, Query);
+  Object.assign(resolvers.Mutation, Mutation);
+});
+
 module.exports = resolvers;
