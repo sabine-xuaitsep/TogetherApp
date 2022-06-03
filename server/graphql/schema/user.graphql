@@ -1,4 +1,31 @@
 type User {
   id: ID!
-  name: String!
+  pseudo: String!
+  email: String!
+  password: String!
+  birthDate: String!
+  firstName: String
+  lastName: String
+  fullName: String
+  avatar: String
+  intro: String
+  description: String
+  phone: String
+  zip: Int
+  city: String
+  country: String
+  token: String
+  emailVerified: Boolean!
+  createdAt: String!
+  updatedAt: String!
+  activities: [Activity!]!
+  categories: [Category!]!
+  participations: [Activity!]!
+  subscriptions: [User!]!
+  followers: [User!]!
+}
+
+extend type Query {
+  users: [User!]
+  user(id: ID!): User!
 }

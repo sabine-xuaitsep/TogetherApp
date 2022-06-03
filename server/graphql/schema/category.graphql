@@ -1,0 +1,13 @@
+type Category {
+  id: ID!
+  name: String!
+  createdAt: String!
+  updatedAt: String!
+  activities: [Activity!]!
+  users: [User!]!
+}
+
+extend type Query {
+  categories: [Category!]
+  category(id: ID!): Category!
+}

@@ -1,0 +1,30 @@
+type Activity {
+  id: ID!
+  title: String!
+  image: String
+  description: String
+  date: String!
+  time: String
+  duration: String
+  latitude: Float!
+  longitude: Float!
+  country: String!
+  zip: String!
+  city: String!
+  street: String
+  streetNumber: String
+  maxParticipants: Int
+  registredParticipants: Int
+  categoryId: String!
+  userId: String!
+  createdAt: String!
+  updatedAt: String!
+  category: Category!
+  user: User!
+  participants: [User!]!
+}
+
+extend type Query {
+  activities: [Activity!]
+  activity(id: ID!): Activity!
+}
