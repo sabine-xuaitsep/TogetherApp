@@ -24,10 +24,10 @@ const demoCategories = categoryNames.map((category, i) => (
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Categories', demoCategories, {});
+    await queryInterface.bulkInsert('categories', demoCategories, {});
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Categories', null, {});
+    await queryInterface.bulkDelete('categories', null, {});
   }
 };

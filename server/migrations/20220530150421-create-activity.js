@@ -2,7 +2,7 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Activities', {
+    await queryInterface.createTable('activities', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -43,12 +43,9 @@ module.exports = {
       },
       street: Sequelize.STRING(100),
       street_number: Sequelize.STRING(10),
-      max_participants: {
-        allowNull: false,
-        type: Sequelize.INTEGER(7).UNSIGNED,
-      },
+      max_participants: Sequelize.INTEGER(7).UNSIGNED,
       registred_participants: Sequelize.INTEGER(7).UNSIGNED,
-      category_id:{
+      category_id: {
         allowNull: false,
         type: Sequelize.INTEGER.UNSIGNED,
         references: {
@@ -75,6 +72,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Activities');
+    await queryInterface.dropTable('activities');
   }
 };

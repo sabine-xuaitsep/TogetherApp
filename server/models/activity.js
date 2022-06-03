@@ -7,37 +7,76 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.Category);
-      this.belongsTo(models.User);
+      this.belongsTo(models.Category, {
+        as: 'category'
+      });
+      this.belongsTo(models.User, {
+        as: 'user'
+      });
       this.belongsToMany(models.User, {
-        as: 'Participants',
-        through: 'Activities_Has_Participants'
+        as: 'participants',
+        through: 'activities_has_participants'
       });
     }
   }
   Activity.init({
-    title: DataTypes.STRING,
-    image: DataTypes.STRING,
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER.UNSIGNED,
+    },
+    title: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    image: DataTypes.STRING(128),
     description: DataTypes.TEXT,
-    date:DataTypes.DATEONLY,
+    date: {
+      allowNull: false,
+      type: DataTypes.DATEONLY,
+    },
     time: DataTypes.TIME,
     duration: DataTypes.TIME,
-    latitude: DataTypes.DECIMAL,
-    longitude: DataTypes.DECIMAL,
-    country: DataTypes.STRING,
-    zip: DataTypes.INTEGER,
-    city: DataTypes.STRING,
-    street: DataTypes.STRING,
-    streetNumber: DataTypes.STRING,
-    maxParticipants: DataTypes.INTEGER,
-    registredParticipants: DataTypes.INTEGER,
-    categoryId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
+    latitude: {
+      allowNull: false,
+      type: DataTypes.DECIMAL(8, 6),
+    },
+    longitude: {
+      allowNull: false,
+      type: DataTypes.DECIMAL(9, 6),
+    },
+    country: {
+      allowNull: false,
+      type: DataTypes.STRING(100),
+    },
+    zip: {
+      allowNull: false,
+      type: DataTypes.INTEGER(10).UNSIGNED,
+    },
+    city: {
+      allowNull: false,
+      type: DataTypes.STRING(100),
+    },
+    street: DataTypes.STRING(100),
+    streetNumber: DataTypes.STRING(10),
+    maxParticipants: DataTypes.INTEGER(7).UNSIGNED,
+    registredParticipants: DataTypes.INTEGER(7).UNSIGNED,
+    categoryId: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+    },
+    userId: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+    },
     createdAt: {
+      allowNull: false,
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATE,
     },
     updatedAt: {
+      allowNull: false,
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATE,
     }
