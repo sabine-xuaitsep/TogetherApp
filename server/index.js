@@ -7,7 +7,7 @@ const { ApolloServerPluginLandingPageGraphQLPlayground } = require('apollo-serve
          
 const typeDefs = require('./graphql/schema');
 const resolvers = require('./graphql/resolvers');
-const models = require('./models');
+const models = require('./db/models');
 
 const server = new ApolloServer({
   typeDefs,

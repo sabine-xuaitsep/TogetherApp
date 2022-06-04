@@ -56,7 +56,7 @@ module.exports = {
       activity.userId = Math.floor(Math.random() * allUsers.length + 1);
       // create Activity
       const newActivity = await Activity.create(activity);
-      // add participants
+      // add participants to activity
       await newActivity.setParticipants(participants);
     }
   },

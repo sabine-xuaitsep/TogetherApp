@@ -38,8 +38,8 @@ module.exports = {
       // select randomly 0 to 5 categories from allCategories
       const number = Math.floor(Math.random() * 6);
       const categories = allCategories.filter((user, i) => i < number);
-      // add categories
-      await newUser.addCategory(categories);
+      // add categories to user
+      await newUser.setCategories(categories);
     }
     
     const allUsers = await User.findAll();
@@ -52,7 +52,7 @@ module.exports = {
       // select randomly 0 to 3 followers from allUsers
       const number = Math.floor(Math.random() * 4);
       const followers = allUsers.filter((user, i) => i < number);
-      // add followers
+      // add followers to user
       await user.setFollowers(followers);
     }
   },
