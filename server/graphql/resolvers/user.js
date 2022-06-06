@@ -1,27 +1,27 @@
 const userResolver = {
   Query: {
-    async users(root, args, { models }) {
-      return models.User.findAll({
-        include: [ 
-          'activities', 
-          'categories', 
-          'participations', 
-          'subscriptions', 
-          'followers' 
-        ],
-      });
+    users(parent, args, { models }) {
+      return models.User.findAll();
     },
-    async user(root, { id }, { models }) {
-      return models.User.findOne({
-        where: { id: id },
-        include: [ 
-          'activities', 
-          'categories', 
-          'participations', 
-          'subscriptions', 
-          'followers' 
-        ],
-      });
+    user(parent, { id }, { models }) {
+      return models.User.findByPk(id);
+    },
+  },
+  User: {
+    activities(parent) {
+      return parent.getActivities();
+    },
+    categories(parent) {
+      return parent.getCategories();
+    },
+    participations(parent) {
+      return parent.getParticipations();
+    },
+    subscriptions(parent) {
+      return parent.getSubscriptions();
+    },
+    followers(parent) {
+      return parent.getFollowers();
     },
   },
 };

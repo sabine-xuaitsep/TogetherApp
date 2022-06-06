@@ -1,23 +1,21 @@
 const activityResolver = {
   Query: {
-    async activities(root, args, { models }) {
-      return models.Activity.findAll({
-        include: [ 
-          'category', 
-          'user', 
-          'participants' 
-        ],
-      });
+    activities(parent, args, { models }) {
+      return models.Activity.findAll();
     },
-    async activity(root, { id }, { models }) {
-      return models.Activity.findOne({
-        where: { id: id },
-        include: [ 
-          'category', 
-          'user', 
-          'participants' 
-        ],
-      });
+    activity(parent, { id }, { models }) {
+      return models.Activity.findByPk(id);
+    },
+  },  
+  Activity: {
+    category(parent) {
+      return parent.getCategory();
+    },
+    user(parent) {
+      return parent.getUser();
+    },
+    participants(parent) {
+      return parent.getParticipants();
     },
   },
 };
