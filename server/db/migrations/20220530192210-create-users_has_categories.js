@@ -10,7 +10,8 @@ module.exports = {
         references: {
           model: 'Users', 
           key: 'id',
-        }
+        },
+        onDelete: 'CASCADE',
       },
       category_id:{
         allowNull: false,
@@ -19,7 +20,7 @@ module.exports = {
         references: {
           model: 'Categories', 
           key: 'id',
-        }
+        },
       },
       created_at: {
         allowNull: false,
@@ -28,7 +29,7 @@ module.exports = {
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
-      }
+      },
     });
   },
   async down (queryInterface, Sequelize) {

@@ -10,7 +10,8 @@ module.exports = {
         references: {
           model: 'Activities', 
           key: 'id',
-        }
+        },
+        onDelete: 'CASCADE',
       },
       user_id: {
         allowNull: false,
@@ -19,7 +20,8 @@ module.exports = {
         references: {
           model: 'Users', 
           key: 'id',
-        }
+        },
+        onDelete: 'CASCADE',
       },
       created_at: {
         allowNull: false,
@@ -28,7 +30,7 @@ module.exports = {
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
-      }
+      },
     });
   },
   async down (queryInterface, Sequelize) {

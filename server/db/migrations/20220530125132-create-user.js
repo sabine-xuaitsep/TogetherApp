@@ -24,7 +24,7 @@ module.exports = {
       },
       birth_date: {
         allowNull: false, 
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
       },
       first_name: Sequelize.STRING(100),
       last_name: Sequelize.STRING(100),
@@ -47,7 +47,7 @@ module.exports = {
       updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
-      }
+      },
     });
   },
   async down(queryInterface, Sequelize) {

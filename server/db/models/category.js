@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.hasMany(models.Activity, {
-        as: 'activities'
+        as: 'activities',
       });
       this.belongsToMany(models.User, {
         as: 'users',
-        through: 'users_has_categories'
+        through: 'users_has_categories',
       });
     }
   }
@@ -25,18 +25,24 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(100)
+      type: DataTypes.STRING(100),
     },
     createdAt: {
       allowNull: false,
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATE,
+      get() {
+        return this.getDataValue('createdAt').toLocaleString('fr-BE');
+      },
     },
     updatedAt: {
       allowNull: false,
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATE,
-    }
+      get() {
+        return this.getDataValue('updatedAt').toLocaleString('fr-BE');
+      },
+    },
   }, {
     sequelize,
     modelName: 'Category',

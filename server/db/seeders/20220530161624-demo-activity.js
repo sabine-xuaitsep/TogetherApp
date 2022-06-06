@@ -32,7 +32,6 @@ const demoActivities = [...Array(100)].map((activity) => (
     categoryId: null,
     userId: null,
     createdAt: faker.date.recent(90),
-    updatedAt: new Date(),
   }
 ));
 

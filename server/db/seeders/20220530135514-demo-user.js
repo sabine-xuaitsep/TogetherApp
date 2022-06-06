@@ -18,9 +18,7 @@ const demoUsers = [...Array(20)].map((user) => (
     zip: faker.random.numeric(4, { allowLeadingZeros: false }),
     city: faker.address.city(),
     country: "Belgique",
-    emailVerified: false,
     createdAt: faker.date.past(7),
-    updatedAt: new Date(),
   }
 ));
 
@@ -43,7 +41,7 @@ module.exports = {
     }
     
     const allUsers = await User.findAll();
-    for await (const user of allUsers) {
+    for await (const user of await User.findAll()) {
       // shuffle allUsers array
       allUsers.reverse().forEach((user, i) => {
         const j = Math.floor(Math.random() * (i + 1));

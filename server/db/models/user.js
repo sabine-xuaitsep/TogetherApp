@@ -8,15 +8,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.hasMany(models.Activity, {
-        as: 'activities'
+        as: 'activities',
       });
       this.belongsToMany(models.Category, {
         as: 'categories',
-        through: 'users_has_categories'
+        through: 'users_has_categories',
       });
       this.belongsToMany(models.Activity, {
         as: 'participations',
-        through: 'activities_has_participants'
+        through: 'activities_has_participants',
       });
       this.belongsToMany(models.User, {
         as: 'subscriptions',
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     birthDate: {
       allowNull: false, 
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
     },
     firstName: DataTypes.STRING(100),
     lastName: DataTypes.STRING(100),
@@ -84,12 +84,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATE,
+      get() {
+        return this.getDataValue('createdAt').toLocaleString('fr-BE');
+      },
     },
     updatedAt: {
       allowNull: false,
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATE,
-    }
+      get() {
+        return this.getDataValue('updatedAt').toLocaleString('fr-BE');
+      },
+    },
   }, {
     sequelize,
     modelName: 'User',

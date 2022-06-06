@@ -8,14 +8,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.Category, {
-        as: 'category'
+        as: 'category',
       });
       this.belongsTo(models.User, {
-        as: 'user'
+        as: 'user',
       });
       this.belongsToMany(models.User, {
         as: 'participants',
-        through: 'activities_has_participants'
+        through: 'activities_has_participants',
       });
     }
   }
@@ -74,12 +74,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATE,
+      get() {
+        return this.getDataValue('createdAt').toLocaleString('fr-BE');
+      },
     },
     updatedAt: {
       allowNull: false,
       defaultValue: DataTypes.NOW,
       type: DataTypes.DATE,
-    }
+      get() {
+        return this.getDataValue('updatedAt').toLocaleString('fr-BE');
+      },
+    },
   }, {
     sequelize,
     modelName: 'Activity',
