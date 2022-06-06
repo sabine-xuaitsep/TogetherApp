@@ -2,16 +2,16 @@ const { readdirSync } = require('fs');
 const dirname = __dirname + '/resolvers/';
 const resolversFiles = readdirSync(dirname);
 
-const resolvers = {
-  Query: {},
-  Mutation: {},
-};
+const resolvers = {};
 
 resolversFiles.forEach(file => {
   const path = `./resolvers/${file}`;
-  const { Query, Mutation } = require(path);
-  Object.assign(resolvers.Query, Query);
-  Object.assign(resolvers.Mutation, Mutation);
+  const resolver = require(path);
+  Object.keys(resolver).forEach(key => {
+    !resolvers[key] 
+      ? resolvers[key] = resolver[key]
+      : Object.assign(resolvers[key], resolver[key]);
+  });
 });
 
 module.exports = resolvers;
