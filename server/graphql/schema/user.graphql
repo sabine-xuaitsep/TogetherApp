@@ -29,3 +29,44 @@ extend type Query {
   users: [User!]
   user(id: ID!): User!
 }
+
+extend type Mutation {
+
+  createUser( 
+    pseudo: String!
+    email: String!
+    password: String!
+    birthDate: String!
+    firstName: String
+    lastName: String
+    fullName: String
+    avatar: String
+    intro: String
+    description: String
+    phone: String
+    zip: Int
+    city: String
+    country: String
+  ): User!
+
+  updateUser( 
+    id: ID!
+    pseudo: String
+    email: String
+    password: String
+    birthDate: String
+    firstName: String
+    lastName: String
+    fullName: String
+    avatar: String
+    intro: String
+    description: String
+    phone: String
+    zip: Int
+    city: String
+    country: String
+  ): Boolean!
+
+  deleteUser(id: ID!): Boolean!
+
+}

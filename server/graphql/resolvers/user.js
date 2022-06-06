@@ -24,6 +24,29 @@ const userResolver = {
       return parent.getFollowers();
     },
   },
+  Mutation: {
+    async createUser(parent, data, { models }) {
+      const checkUser = await models.User.findOne({
+        where: { email: data.email }
+      });
+      return checkUser === null
+        ? models.User.create(data)
+        : new Error("email already registered");
+    },
+    async updateUser(parent, data, { models }) {
+      const ID = data.id;
+      delete data.id;
+      const response = await models.User.update(data, {
+        where: { id: ID },
+      }); 
+      return Number(response);
+    },
+    deleteUser(parent, { id }, { models }) {
+      return models.User.destroy({
+        where: { id: id }
+      });
+    }
+  }
 };
  
 module.exports = userResolver;

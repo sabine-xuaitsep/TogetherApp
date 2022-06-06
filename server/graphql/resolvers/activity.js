@@ -18,6 +18,24 @@ const activityResolver = {
       return parent.getParticipants();
     },
   },
+  Mutation: {
+    createActivity(parent, data, { models }) {
+      return models.Activity.create(data);
+    },
+    async updateActivity(parent, data, { models }) {
+      const ID = data.id;
+      delete data.id;
+      const response = await models.Activity.update(data, {
+        where: { id: ID },
+      }); 
+      return Number(response);
+    },
+    deleteActivity(parent, { id }, { models }) {
+      return models.Activity.destroy({
+        where: { id: id }
+      });
+    }
+  }
 };
  
 module.exports = activityResolver;

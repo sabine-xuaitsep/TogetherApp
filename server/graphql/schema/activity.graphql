@@ -9,14 +9,14 @@ type Activity {
   latitude: Float!
   longitude: Float!
   country: String!
-  zip: String!
+  zip: Int!
   city: String!
   street: String
   streetNumber: String
   maxParticipants: Int
   registredParticipants: Int
-  categoryId: String!
-  userId: String!
+  categoryId: ID!
+  userId: ID!
   createdAt: String!
   updatedAt: String!
   category: Category!
@@ -27,4 +27,48 @@ type Activity {
 extend type Query {
   activities: [Activity!]
   activity(id: ID!): Activity!
+}
+
+extend type Mutation {
+
+  createActivity( 
+    title: String!, 
+    image: String, 
+    description: String, 
+    date: String!, 
+    time: String, 
+    duration: String, 
+    latitude: Float!, 
+    longitude: Float!, 
+    country: String!, 
+    zip: Int!, 
+    city: String!, 
+    street: String, 
+    streetNumber: String, 
+    maxParticipants: Int, 
+    categoryId: ID!, 
+    userId: ID!
+  ): Activity!
+
+  updateActivity( 
+    id: ID!
+    title: String, 
+    image: String, 
+    description: String, 
+    date: String, 
+    time: String, 
+    duration: String, 
+    latitude: Float, 
+    longitude: Float, 
+    country: String, 
+    zip: Int, 
+    city: String, 
+    street: String, 
+    streetNumber: String, 
+    maxParticipants: Int, 
+    categoryId: ID
+  ): Boolean!
+
+  deleteActivity(id: ID!): Boolean!
+  
 }
