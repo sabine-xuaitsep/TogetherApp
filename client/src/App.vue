@@ -1,10 +1,10 @@
 <script setup>
-import User from './components/User.vue'
+
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <User msg="Hello" />
+  <router-view></router-view>
 </template>
 
 <style>

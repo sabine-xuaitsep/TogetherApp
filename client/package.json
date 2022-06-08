@@ -12,7 +12,9 @@
     "@vue/apollo-composable": "^4.0.0-alpha.17",
     "graphql": "^16.5.0",
     "graphql-tag": "^2.12.6",
-    "vue": "^3.2.25"
+    "pinia": "^2.0.14",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.15"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
