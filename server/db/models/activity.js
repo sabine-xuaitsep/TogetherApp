@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
     street: DataTypes.STRING(100),
     streetNumber: DataTypes.STRING(10),
     maxParticipants: DataTypes.INTEGER(7).UNSIGNED,
-    registredParticipants: DataTypes.INTEGER(7).UNSIGNED,
+    registeredParticipants: DataTypes.INTEGER(7).UNSIGNED,
     categoryId: {
       allowNull: false,
       type: DataTypes.INTEGER.UNSIGNED,

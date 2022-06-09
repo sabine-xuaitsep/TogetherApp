@@ -44,7 +44,7 @@ module.exports = {
       street: Sequelize.STRING(100),
       street_number: Sequelize.STRING(10),
       max_participants: Sequelize.INTEGER(7).UNSIGNED,
-      registred_participants: Sequelize.INTEGER(7).UNSIGNED,
+      registered_participants: Sequelize.INTEGER(7).UNSIGNED,
       category_id: {
         allowNull: false,
         type: Sequelize.INTEGER.UNSIGNED,

@@ -14,7 +14,7 @@ type Activity {
   street: String
   streetNumber: String
   maxParticipants: Int
-  registredParticipants: Int
+  registeredParticipants: Int
   categoryId: ID!
   userId: ID!
   createdAt: String!

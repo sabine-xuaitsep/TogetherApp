@@ -28,7 +28,7 @@ const demoActivities = [...Array(100)].map((activity) => (
     street: faker.address.street(),
     streetNumber: faker.datatype.number({ min: 1, max: 357 }),
     maxParticipants: faker.datatype.number({ min: 10, max: 99 }),
-    registredParticipants: null,
+    registeredParticipants: null,
     categoryId: null,
     userId: null,
     createdAt: faker.date.recent(90),
@@ -50,7 +50,7 @@ module.exports = {
       const number = Math.floor(Math.random() * 11);
       const participants = allUsers.filter((user, i) => i < number);
       // replace some data with async data
-      activity.registredParticipants = participants.length,
+      activity.registeredParticipants = participants.length,
       activity.categoryId = Math.floor(Math.random() * allCategories.length + 1);
       activity.userId = Math.floor(Math.random() * allUsers.length + 1);
       // create Activity

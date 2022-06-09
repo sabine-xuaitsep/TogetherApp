@@ -1,7 +1,7 @@
 const activityResolver = {
   Query: {
     activities(parent, args, { models }) {
-      return models.Activity.findAll();
+      return models.Activity.findAll({ limit: 2 });
     },
     activity(parent, { id }, { models }) {
       return models.Activity.findByPk(id);
