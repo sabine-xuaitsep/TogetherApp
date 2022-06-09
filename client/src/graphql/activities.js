@@ -7,6 +7,7 @@ export const activitiesQuery = gql`
       title
       image
       date
+      city
       maxParticipants
       registeredParticipants
       category {
@@ -15,7 +16,7 @@ export const activitiesQuery = gql`
       latitude
       longitude
       user {
-        pseudo
+        firstName
       }
     }
   }
