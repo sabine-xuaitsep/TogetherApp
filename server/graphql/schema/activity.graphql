@@ -8,6 +8,7 @@ type Activity {
   duration: String
   latitude: Float!
   longitude: Float!
+  distance: Float
   country: String!
   zip: Int!
   city: String!
@@ -25,7 +26,9 @@ type Activity {
 }
 
 extend type Query {
-  activities: [Activity!]
+  activities: [Activity!]!
+  activitiesByDate(latitude: Float!, longitude: Float!, limit: Int): [Activity!]!
+  activitiesByDist(latitude: Float!, longitude: Float!, distance: Int, limit: Int): [Activity!]!
   activity(id: ID!): Activity!
 }
 

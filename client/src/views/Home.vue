@@ -37,7 +37,7 @@ function calcWrapperPosition() {
       <section>
         <h2 class="pt-6 pl-6 font-bold text-xl">Activités à proximité</h2>
 
-        <SliderVue content="activitiesByDist" />
+        <SliderVue content="activities" query="activitiesByDist" :args="{ latitude: 50.642027, longitude: 5.569576, distance: 30000, limit: 5 }" />
       </section>
       <!-- end activities by distance -->
       
@@ -45,7 +45,7 @@ function calcWrapperPosition() {
       <section>
         <h2 class="pt-6 pl-6 font-bold text-xl">Prochaines activités</h2>
 
-        <SliderVue content="activitiesByDate" />
+        <SliderVue content="activities" query="activitiesByDate" :args="{ latitude: 50.642027, longitude: 5.569576, limit: 5 }" />
       </section>
       <!-- end activities by date -->
 

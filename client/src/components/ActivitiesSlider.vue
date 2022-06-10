@@ -2,16 +2,26 @@
 
 import { computed, onBeforeMount, onUpdated, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
-import { activitiesQuery } from '../graphql/activities'
+import { activitiesByDateQuery } from '../graphql/activities'
+import { activitiesByDistQuery } from '../graphql/activities'
 import ActivityCardVue from './ActivityCard.vue'
 import ActivityCardLoadingVue from './ActivityCardLoading.vue'
 
-const { result, loading, error } = useQuery(activitiesQuery)
-const activities = computed(() => result.value?.activities ?? [])
+const graphql = defineProps({
+  query: String,
+  args: Object
+})
 
 const sliderList = ref(null)
-
 const emit = defineEmits(['offset-width', 'custom-class'])
+
+const queries = {
+  'activitiesByDate': activitiesByDateQuery,
+  'activitiesByDist': activitiesByDistQuery
+}
+
+const { result, loading, error } = useQuery(queries[graphql.query], graphql.args)
+const activities = computed(() => result.value?.[graphql.query] ?? [])
 
 onBeforeMount(() => {
   emit('custom-class', {
@@ -21,9 +31,11 @@ onBeforeMount(() => {
     arrow: "w-10 h-10"
   })
 })
+
 onUpdated(() => {
   emit('offset-width', sliderList.value.offsetWidth)
 })
+
 </script>
 
 <template>
@@ -31,7 +43,6 @@ onUpdated(() => {
     ref="sliderList" 
     class="flex flex-nowrap text-xs pr-6">
 
-    <ActivityCardLoadingVue v-if="loading" />
     <ActivityCardLoadingVue v-if="loading" />
 
     <ActivityCardVue v-for="activity of activities" :key="activity.id" :activity="activity" />

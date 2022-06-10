@@ -46,6 +46,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.DECIMAL(9, 6),
     },
+    distance: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return Math.round(this.getDataValue('distance') / 1000);
+      },
+    },
     country: {
       allowNull: false,
       type: DataTypes.STRING(100),

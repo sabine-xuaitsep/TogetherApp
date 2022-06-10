@@ -1,7 +1,9 @@
 <script setup>
+
 defineProps({
   activity: Object
 })
+
 </script>
 
 <template>
@@ -10,7 +12,7 @@ defineProps({
 
       <div class="relative">
         <figure class="aspect-w-16 aspect-h-9">
-          <img class="object-cover rounded-t-xl" src="assets/images/activities/activities_1.jpg" alt="Illustration de trail">
+          <img class="object-cover rounded-t-xl" :src="activity.image" alt="Illustration de trail">
         </figure>
 
         <a href="#category" class="absolute top-3 left-3 z-10 px-2 py-1 bg-slate-50 rounded-lg text-custom-color-dark font-bold">
@@ -30,7 +32,7 @@ defineProps({
         <footer class="text-center my-2">
           <div class="flex items-center mt-1 text-custom-color-cold">
             <svg class="w-5 h-5 mr-1 stroke-slate-50 fill-custom-color-cold" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            <p>{{ activity.city }},10 Km</p>
+            <p>{{ activity.city }}, {{ activity.distance }} km</p>
           </div>
 
           <div class="flex items-center mt-1">

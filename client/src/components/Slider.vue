@@ -5,7 +5,9 @@ import ActivitiesSliderVue from './ActivitiesSlider.vue'
 import CategoriesSliderVue from './CategoriesSlider.vue'
 
 defineProps({
-  content: String
+  content: String, 
+  query: String,
+  args: Object
 })
 
 const wrapper = ref(null), 
@@ -103,7 +105,9 @@ window.addEventListener('resize', () => {
       </div>
     </div>
 
-    <ActivitiesSliderVue v-if="content === 'activitiesByDist' || content === 'activitiesByDate'"
+    <ActivitiesSliderVue v-if="content === 'activities'"
+      :query="query"
+      :args="args"
       @offset-width="setListOffsetWidth"
       @custom-class="setCustomClass" 
     />
