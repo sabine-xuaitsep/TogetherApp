@@ -1,4 +1,5 @@
 <script setup>
+
 import MainTopBarVue from '../components/MainTopBar.vue'
 import SliderVue from '../components/Slider.vue'
 import { ref  } from 'vue'
@@ -9,6 +10,7 @@ const wrapperPosition = ref(null)
 function calcWrapperPosition() {
   wrapperPosition.value = wrapper.value.scrollTop
 }
+
 </script>
 
 <template>

@@ -1,5 +1,16 @@
 <script setup>
 
+import { useRouter } from 'vue-router'
+import { useUserStore } from './store/user'
+
+const router = useRouter()
+const userStore = useUserStore()
+
+if (!navigator.onLine) 
+  router.push({ name: '404' })
+
+userStore.locateUser()
+
 </script>
 
 <template>

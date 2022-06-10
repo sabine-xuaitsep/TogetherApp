@@ -1,4 +1,5 @@
-import Home from "../views/Home.vue";
+import Home from '../views/Home.vue'
+import Err404 from '../views/Err404.vue'
 
 export default [
     {
@@ -6,4 +7,9 @@ export default [
         name: "home",
         component: Home,
     },
-];
+    {
+        path: "/404",
+        name: "404",
+        component: Err404,
+    },
+]
