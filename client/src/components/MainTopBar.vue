@@ -1,6 +1,6 @@
 <script setup>
 
-import { computed, onMounted, onUpdated, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const scroll = defineProps({
   wrapperPosition: Number

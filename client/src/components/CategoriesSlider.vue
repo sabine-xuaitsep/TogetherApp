@@ -4,12 +4,11 @@ import { computed, onBeforeMount, onUpdated, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { categoriesQuery } from '../graphql/categories'
 
-const { result, loading, error } = useQuery(categoriesQuery)
-const categories = computed(() => result.value?.categories ?? [])
-
 const sliderList = ref(null)
-
 const emit = defineEmits(['offset-width', 'custom-class'])
+
+const { result, loading, error  } = useQuery(categoriesQuery)
+const categories = computed(() => result.value?.categories ?? [])
 
 onBeforeMount(() => {
   emit('custom-class', {
@@ -19,15 +18,28 @@ onBeforeMount(() => {
     arrow: "w-5 h-5"
   })
 })
+
 onUpdated(() => {
   emit('offset-width', sliderList.value.offsetWidth)
 })
+
 </script>
 
 <template>
   <ul 
     ref="sliderList" 
     class="flex">
+
+    
+    <li 
+      v-if="loading"
+      v-for="item of new Array(7)" :key="item"
+      class="mr-4 text-center text-xs text-transparent">
+      <a class="block w-16 h-24">
+        <div class="mb-2 w-16 h-16 bg-custom-color-black rounded-full shadow-lg shadow-custom-color-dark"></div>
+        <span>Nothing</span>
+      </a>
+    </li>
 
     <!-- category link -->
     <li 
