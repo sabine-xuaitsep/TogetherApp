@@ -8,6 +8,6 @@ type Category {
 }
 
 extend type Query {
-  categories: [Category!]
+  categories: [Category!]!
   category(id: ID!): Category!
 }

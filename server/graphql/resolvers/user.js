@@ -1,10 +1,10 @@
 const userResolver = {
   Query: {
-    users(parent, args, { models }) {
-      return models.User.findAll();
+    users(parent, args, { models: { User } }) {
+      return User.findAll();
     },
-    user(parent, { id }, { models }) {
-      return models.User.findByPk(id);
+    user(parent, { id }, { models: { User } }) {
+      return User.findByPk(id);
     },
   },
   User: {
@@ -25,24 +25,24 @@ const userResolver = {
     },
   },
   Mutation: {
-    async createUser(parent, data, { models }) {
-      const checkUser = await models.User.findOne({
+    async createUser(parent, data, { models: { User } }) {
+      const checkUser = await User.findOne({
         where: { email: data.email }
       });
       return checkUser === null
-        ? models.User.create(data)
+        ? User.create(data)
         : new Error("email already registered");
     },
-    async updateUser(parent, data, { models }) {
+    async updateUser(parent, data, { models: { User } }) {
       const ID = data.id;
       delete data.id;
-      const response = await models.User.update(data, {
+      const response = await User.update(data, {
         where: { id: ID },
       }); 
       return Number(response);
     },
-    deleteUser(parent, { id }, { models }) {
-      return models.User.destroy({
+    deleteUser(parent, { id }, { models: { User } }) {
+      return User.destroy({
         where: { id: id }
       });
     }

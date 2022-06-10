@@ -1,10 +1,10 @@
 const categoryResolver = {
   Query: {
-    categories(parent, args, { models }) {
-      return models.Category.findAll();
+    categories(parent, args, { models: { Category } }) {
+      return Category.findAll();
     },
-    category(parent, { id }, { models }) {
-      return models.Category.findByPk(id);
+    category(parent, { id }, { models: { Category } }) {
+      return Category.findByPk(id);
     },
   },
   Category: {
