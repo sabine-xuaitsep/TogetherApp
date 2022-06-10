@@ -12,10 +12,13 @@ const mainTopBar = ref(null),
 const isHiddenIcon = ref(false),
       treshold = ref(null)
 
+const emit = defineEmits(['offset-height'])
+
 const sticky = computed(() => scroll.wrapperPosition >= treshold.value)
 
 onMounted(() => {
   treshold.value = mainTopBar.value.offsetTop
+  emit('offset-height', mainTopBar.value.offsetHeight)
 })
 
 watch(scroll, () => {
@@ -67,7 +70,8 @@ watch(scroll, () => {
     <!-- end filters link -->
 
     <!-- map link: hidden when focus on searchbar -->
-    <a 
+    <router-link 
+      :to="{ name: 'map' }"
       :class="{ hidden: isHiddenIcon }" 
       class="flex items-center justify-center ml-2 w-12 h-12" href="map.html">
       <span class="sr-only">Carte</span>
@@ -76,7 +80,7 @@ watch(scroll, () => {
         class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
       </svg>
-    </a>
+    </router-link>
     <!-- end map link -->
 
   </div>

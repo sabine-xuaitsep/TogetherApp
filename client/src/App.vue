@@ -18,7 +18,7 @@ userStore.locateUser()
 
     <router-view></router-view>
 
-    <footer>
+    <footer id="navBar">
       <nav class="py-3 w-full bg-slate-50">
         <ul class="flex justify-around text-custom-color-black">
           <li>
