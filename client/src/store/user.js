@@ -20,7 +20,7 @@ export const useUserStore = defineStore('user', {
           this.user.latitude = pos.coords.latitude
           this.user.longitude = pos.coords.longitude
           try {
-            const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`)   
+            const res = await axios.get(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${this.user.latitude}&lon=${this.user.longitude}`) 
             // this.user.city = res.data.address.municipality
             this.user.city = res.data.address.village
             this.user.country = res.data.address.country

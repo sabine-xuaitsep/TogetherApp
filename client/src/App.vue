@@ -11,6 +11,10 @@ if (!navigator.onLine)
 
 userStore.locateUser()
 
+userStore.$subscribe((mutation, state) => {
+  sessionStorage.setItem('user', JSON.stringify(state.user))
+})
+
 </script>
 
 <template>
