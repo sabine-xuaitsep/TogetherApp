@@ -1,21 +1,34 @@
 import Home from '../views/Home.vue'
-import Map from '../views/Map.vue'
+import Dashboard from '../components/Dashboard.vue'
+import Map from '../components/Map.vue'
+import ActivitiesList from '../components/ActivitiesList.vue'
 import Err404 from '../views/Err404.vue'
 
 export default [
-    {
-        path: "/",
+  {
+    path: "/",
+    component: Home,
+    children: [
+      {
+        path: "",
         name: "home",
-        component: Home,
-    },
-    {
+        component: Dashboard,
+      },
+      {
         path: "/map",
         name: "map",
         component: Map,
-    },
-    {
-        path: "/404",
-        name: "404",
-        component: Err404,
-    },
+      },
+      {
+        path: "/activities/:query",
+        name: "activities",
+        component: ActivitiesList,
+      },
+    ]
+  },
+  {
+    path: "/404",
+    name: "404",
+    component: Err404,
+  },
 ]

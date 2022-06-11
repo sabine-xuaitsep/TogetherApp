@@ -2,8 +2,8 @@
 
 import { computed, onBeforeMount, onUpdated, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
-import { activitiesByDateQuery } from '../graphql/activities'
-import { activitiesByDistQuery } from '../graphql/activities'
+import { activitiesByDateQuery } from './../graphql/activities'
+import { activitiesByDistQuery } from './../graphql/activities'
 import ActivityCardVue from './ActivityCard.vue'
 import ActivityCardLoadingVue from './ActivityCardLoading.vue'
 
@@ -43,18 +43,20 @@ onUpdated(() => {
     ref="sliderList" 
     class="flex flex-nowrap text-xs pr-6">
 
-    <ActivityCardLoadingVue v-if="loading" />
+    <ActivityCardLoadingVue v-if="loading || error" />
 
     <ActivityCardVue v-for="activity of activities" :key="activity.id" :activity="activity" />
 
   </ul>
-
-  <a href="activities_list.html" class="flex flex-col justify-center mr-6">
+  
+  <router-link 
+    :to="{ name: 'activities', params: { query: query } }"
+    class="flex flex-col justify-center mr-6">
     <span class="text-center pb-3">Voir plus</span>
     <div class="flex items-center justify-center w-20 h-20 bg-slate-50/50 rounded-full">
       <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <style scoped>

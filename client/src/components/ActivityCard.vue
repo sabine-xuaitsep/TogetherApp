@@ -1,13 +1,16 @@
 <script setup>
 
 defineProps({
-  activity: Object
+  activity: Object,
+  customClass: String
 })
 
 </script>
 
 <template>
-  <li class="mr-3 relative w-56 sm:w-72"> 
+  <li 
+    :class="customClass"
+    class="mr-3 relative w-56 sm:w-72"> 
     <article class="bg-custom-color-dark rounded-xl shadow-lg shadow-custom-color-dark">
 
       <div class="relative">
