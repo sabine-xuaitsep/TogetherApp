@@ -2,7 +2,7 @@
 
 import { computed, onBeforeMount, onUpdated, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
-import { categoriesQuery } from '../graphql/categories'
+import { categoriesQuery } from './../graphql/categories'
 
 const sliderList = ref(null)
 const emit = defineEmits(['offset-width', 'custom-class'])
@@ -32,7 +32,7 @@ onUpdated(() => {
 
     
     <li 
-      v-if="loading"
+      v-if="loading || error"
       v-for="item of new Array(7)" :key="item"
       class="mr-4 text-center text-xs text-transparent">
       <a class="block w-16 h-24">

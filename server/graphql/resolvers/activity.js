@@ -5,7 +5,7 @@ const activityResolver = {
     activities(parent, args, { models: { Activity } }) {
       return Activity.findAll();
     },
-    activitiesByDate(parent, { latitude, longitude, limit = 500 }, { models: { Activity, sequelize } }) {
+    activitiesByDate(parent, { latitude, longitude, limit = 100 }, { models: { Activity, sequelize } }) {
       return Activity.findAll({
         attributes: {
           include: [
@@ -22,7 +22,7 @@ const activityResolver = {
         limit: limit
       });
     },
-    activitiesByDist(parent, { latitude, longitude, distance = 30000, limit = 500 }, { models: { Activity, sequelize } }) {
+    activitiesByDist(parent, { latitude, longitude, distance = 300000, limit = 100 }, { models: { Activity, sequelize } }) {
       return Activity.findAll({
         attributes: {
           include: [

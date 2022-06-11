@@ -73,7 +73,7 @@ watch(scroll, () => {
     <router-link 
       :to="{ name: 'map' }"
       :class="{ hidden: isHiddenIcon }" 
-      class="flex items-center justify-center ml-2 w-12 h-12" href="map.html">
+      class="flex items-center justify-center ml-2 w-12 h-12">
       <span class="sr-only">Carte</span>
       <svg 
         :class="{ 'fill-slate-50 stroke-slate-50': !sticky }"
