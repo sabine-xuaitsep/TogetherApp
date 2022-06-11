@@ -29,7 +29,7 @@ extend type Query {
   activities: [Activity!]!
   activitiesByDate(latitude: Float!, longitude: Float!, limit: Int): [Activity!]!
   activitiesByDist(latitude: Float!, longitude: Float!, distance: Int, limit: Int): [Activity!]!
-  activity(id: ID!): Activity!
+  activity(id: ID!, latitude: Float!, longitude: Float!): Activity!
 }
 
 extend type Mutation {

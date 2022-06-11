@@ -39,8 +39,15 @@ const activityResolver = {
         limit: limit
       });
     },
-    activity(parent, { id }, { models: { Activity } }) {
-      return Activity.findByPk(id);
+    activity(parent, { id, latitude, longitude }, { models: { Activity, sequelize } }) {
+      return Activity.findOne({
+        where: { id: id },
+        attributes: {
+          include: [
+            [ sequelize.fn('ST_Distance_Sphere', sequelize.fn('ST_GeomFromText', `POINT(${longitude} ${latitude})`), sequelize.fn('POINT', sequelize.col('longitude'),sequelize.col('latitude'),)), 'distance' ]
+          ]
+        },
+      });
     },
   },  
   Activity: {

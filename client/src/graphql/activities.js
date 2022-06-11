@@ -1,5 +1,39 @@
 import gql from 'graphql-tag'
 
+export const activityQuery = gql`
+  query activity($id: ID!, $latitude: Float!, $longitude: Float!) {
+    activity(id: $id, latitude: $latitude, longitude: $longitude) {
+      id
+      title
+      image
+      description
+      date
+      time
+      latitude
+      longitude
+      distance
+      zip
+      city
+      street
+      streetNumber
+      maxParticipants
+      registeredParticipants
+      category {
+        name
+      }
+      user {
+        id
+        pseudo
+        avatar
+      }
+      participants {
+        id
+        avatar
+      }
+    }
+  }
+`;
+
 export const activitiesQuery = gql`
   query activities {
     activities {

@@ -53,16 +53,18 @@ defineProps({
           
           <div class="flex items-center mt-1">
             <svg class="mr-1 w-5 h-5 fill-slate-50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            <p class="font-light">{{ activity.registeredParticipants}}/{{ activity.maxParticipants}} Participants</p>
+            <p class="font-light">{{ activity.registeredParticipants }}/{{ activity.maxParticipants }} Participants</p>
           </div>
 
         </footer>
         
         <!-- card link -->
         <div class="text-center my-3">
-          <a href="activity.html" class="inline-block px-8 py-1 bg-custom-color-cold rounded-3xl after:absolute after:inset-0 after:content-[' ']">
+          <router-link 
+            :to="{ name: 'activity', params: { id: activity.id } }"
+            class="inline-block px-8 py-1 bg-custom-color-cold rounded-3xl after:absolute after:inset-0 after:content-[' ']">
             Infos
-          </a>
+          </router-link>
         </div>
         <!-- end card link -->
       </div>
