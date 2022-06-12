@@ -5,14 +5,13 @@ import { computed, onMounted, ref, watch } from 'vue'
 const scroll = defineProps({
   wrapperPosition: Number
 })
+const emit = defineEmits(['offset-height'])
 
 const mainTopBar = ref(null),
       searchbarInput = ref(null)
 
 const isHiddenIcon = ref(false),
       treshold = ref(null)
-
-const emit = defineEmits(['offset-height'])
 
 const sticky = computed(() => scroll.wrapperPosition >= treshold.value)
 

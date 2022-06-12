@@ -19,6 +19,7 @@ export const activityQuery = gql`
       maxParticipants
       registeredParticipants
       category {
+        id
         name
       }
       user {
@@ -45,11 +46,13 @@ export const activitiesQuery = gql`
       maxParticipants
       registeredParticipants
       category {
+        id
         name
       }
       latitude
       longitude
       user {
+        id
         firstName
       }
     }
@@ -68,9 +71,11 @@ export const activitiesByDistQuery = gql`
       maxParticipants
       registeredParticipants
       category {
+        id
         name
       }
       user {
+        id
         firstName
       }
     }
@@ -89,11 +94,13 @@ export const activitiesByDateQuery = gql`
       maxParticipants
       registeredParticipants
       category {
+        id
         name
       }
       latitude
       longitude
       user {
+        id
         firstName
       }
     }

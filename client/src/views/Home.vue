@@ -1,69 +1,43 @@
 <script setup>
 
-import { onUpdated, ref  } from 'vue'
-import { useRoute } from 'vue-router'
-import MainTopBarVue from '../components/MainTopBar.vue'
+import { computed, reactive } from 'vue'
+import { useUserStore } from './../store/user'
+import SliderVue from './../components/sliders/Slider.vue'
 
-const wrapper = ref(null),
-      header = ref(null)
-const wrapperPosition = ref(null),
-      topBarHeight = ref(null)
+const userStore = useUserStore()
 
-const route = useRoute()
-const storedRoute = ref(route.name)
+const userLatitude = computed(() => userStore.user.latitude)
+const userLongitude = computed(() => userStore.user.longitude)
 
-onUpdated(() => {
-  if(storedRoute.value !== route.name) {
-    wrapper.value.scrollTo(0, 0)
-    checkMapHeight(topBarHeight.value)
-    storedRoute.value = route.name
-  }
-})
-
-function calcWrapperPosition() {
-  wrapperPosition.value = wrapper.value.scrollTop
-}
-
-function checkMapHeight(height) {
-  topBarHeight.value = height
-  if(route.name === 'map') {
-    const filledHeight = header.value.offsetHeight 
-                        + getHeaderMargin('Top') 
-                        + getHeaderMargin('Bottom')
-                        + topBarHeight.value
-                        + document.getElementById('navBar').offsetHeight 
-    document.getElementById('map').style.height = `calc(100vh - ${filledHeight}px)`
-  }
-}
-
-function getHeaderMargin(pos) {
-  return Number((getComputedStyle(header.value)[`margin${pos}`]).replace('px', ''))
-}
+const argsActivitiesByDist = reactive({ latitude: userLatitude, longitude: userLongitude, distance: 300000, limit: 5 })
+const argsActivitiesByDate = reactive({ latitude: userLatitude, longitude: userLongitude, limit: 5 })
 
 </script>
 
 <template>
-  <div 
-    ref="wrapper"
-    @scroll="calcWrapperPosition"
-    class="grow overflow-y-auto text-slate-50">
+  <!-- categories filters -->
+  <section>
+    <h2 class="sr-only">Filtrer par catégorie</h2>
 
-    <header>
-      <h1 
-        ref="header" 
-        class="mt-10 mb-6 ml-6 mr-8 font-bold text-4xl">
-        <router-link :to="{ name: 'home' }">Together</router-link>
-      </h1>
-    </header>
+    <SliderVue content="categories" />
+  </section>
+  <!-- end categories filters -->
+  
+  <!-- activities by distance -->
+  <section>
+    <h2 class="pt-6 pl-6 font-bold text-xl">Activités à proximité</h2>
 
-    <main>
+    <SliderVue content="activities" query="activitiesByDist" :args="argsActivitiesByDist" />
+  </section>
+  <!-- end activities by distance -->
+  
+  <!-- activities by date -->
+  <section>
+    <h2 class="pt-6 pl-6 font-bold text-xl">Prochaines activités</h2>
 
-      <MainTopBarVue :wrapperPosition="wrapperPosition" @offset-height="checkMapHeight" />
-
-      <router-view></router-view>
-
-    </main>
-  </div>
+    <SliderVue content="activities" query="activitiesByDate" :args="argsActivitiesByDate" />
+  </section>
+  <!-- end activities by date -->
 </template>
 
 <style scoped>

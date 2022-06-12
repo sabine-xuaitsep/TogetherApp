@@ -1,26 +1,30 @@
 <script setup>
 
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 import { useUserStore } from './store/user'
+import Err404Vue from './views/Err404.vue'
 
-const router = useRouter()
 const userStore = useUserStore()
 
-if (!navigator.onLine) 
-  router.push({ name: '404' })
+const userLoading = ref(true),
+      offline = ref(!navigator.onLine)
 
 userStore.locateUser()
 
 userStore.$subscribe((mutation, state) => {
-  sessionStorage.setItem('user', JSON.stringify(state.user))
+  userLoading.value = state.user.loading
+  // sessionStorage.setItem('user', JSON.stringify(state.user))
 })
 
 </script>
 
 <template>
-  <div class="flex flex-col w-screen h-screen bg-gradient-to-t from-custom-color-normal via-custom-color-light to-custom-color-light">
+  <div 
+    :class="{ 'bg-custom-color-dark': userLoading, 'bg-gradient-to-t from-custom-color-normal via-custom-color-light to-custom-color-light' : !userLoading }"
+    class="flex flex-col w-screen h-screen">
 
-    <router-view></router-view>
+    <Err404Vue v-if="offline" />
+    <router-view v-else></router-view>
 
     <footer id="navBar">
       <nav class="py-3 w-full bg-slate-50">

@@ -9,6 +9,7 @@ export const useUserStore = defineStore('user', {
       longitude: null,
       city: null,
       country: null,
+      loading: true
     },
   }),
   getters: {},
@@ -24,6 +25,7 @@ export const useUserStore = defineStore('user', {
             // this.user.city = res.data.address.municipality
             this.user.city = res.data.address.village
             this.user.country = res.data.address.country
+            this.user.loading = false
           } 
           catch (err) {
             console.log("reverseGeo failed")
@@ -37,6 +39,7 @@ export const useUserStore = defineStore('user', {
             this.user.longitude = res.data.longitude
             this.user.city = res.data.city
             this.user.country = res.data.country
+            this.user.loading = false
           } 
           catch (err) {
             console.log("ipRequest failed")

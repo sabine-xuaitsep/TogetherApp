@@ -1,19 +1,19 @@
+import MainWrapper from './../views/wrappers/MainWrapper.vue'
 import Home from './../views/Home.vue'
-import Dashboard from './../components/Dashboard.vue'
-import Map from './../components/Map.vue'
-import ActivitiesList from './../components/ActivitiesList.vue'
+import Map from './../views/Map.vue'
+import ActivitiesList from './../views/ActivitiesList.vue'
 import Activity from './../views/Activity.vue'
 import Err404 from './../views/Err404.vue'
 
 export default [
   {
     path: "/",
-    component: Home,
+    component: MainWrapper,
     children: [
       {
         path: "",
         name: "home",
-        component: Dashboard,
+        component: Home,
       },
       {
         path: "/map",

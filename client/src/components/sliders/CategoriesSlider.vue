@@ -2,13 +2,14 @@
 
 import { computed, onBeforeMount, onUpdated, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
-import { categoriesQuery } from './../graphql/categories'
+import { categoriesQuery } from './../../graphql/categories'
 
-const sliderList = ref(null)
 const emit = defineEmits(['offset-width', 'custom-class'])
 
 const { result, loading, error  } = useQuery(categoriesQuery)
 const categories = computed(() => result.value?.categories ?? [])
+
+const sliderList = ref(null)
 
 onBeforeMount(() => {
   emit('custom-class', {
