@@ -14,9 +14,7 @@ activitiesStore.fetch('activitiesByDist')
 
 loadActivities()
 watch(activitiesStore, () => {
-  if(!activities.value) {
-    loadActivities()
-  }
+  if(!activities.value) loadActivities()
   if(activities.value) bindMarkersVisibility()  
 })
 
@@ -40,22 +38,22 @@ function loadActivities() {
 }
 
 function loadMarkers() {
-  activities.value.forEach((activity) => {
+  activities.value.forEach((activity) => 
     markers.value.push({
       id: activity.id,
       activity: activity,
       isShown: false,
     })
-  })
+  )
 }
 
 function bindMarkersVisibility() {
-  markers.value.forEach((marker) => {
+  markers.value.forEach((marker) => 
     marker.isShown = 
       activitiesStore.getFiltered.find((activity) => 
         activity.id === marker.id
       ) ? true : false
-  })
+  )
 }
 
 </script>

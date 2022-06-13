@@ -1,6 +1,6 @@
 <script setup>
 
-import { computed, onBeforeMount, onUpdated, ref } from 'vue'
+import { computed, onMounted, onBeforeMount, onUpdated, ref } from 'vue'
 import { useQuery } from '@vue/apollo-composable'
 import { categoriesQuery } from './../../graphql/categories'
 
@@ -11,18 +11,15 @@ const categories = computed(() => result.value?.categories ?? [])
 
 const sliderList = ref(null)
 
-onBeforeMount(() => {
-  emit('custom-class', {
-    wrapper: "mt-8 mb-7 px-6",
-    arrowBox: "h-16",
-    arrowLink: "w-10 h-10",
-    arrow: "w-5 h-5"
-  })
-})
+onBeforeMount(() => emit('custom-class', {
+  wrapper: "mt-8 mb-7 px-6",
+  arrowBox: "h-16",
+  arrowLink: "w-10 h-10",
+  arrow: "w-5 h-5"
+}))
 
-onUpdated(() => {
-  emit('offset-width', sliderList.value.offsetWidth)
-})
+onMounted(() => emit('offset-width', sliderList.value.offsetWidth))
+onUpdated(() => emit('offset-width', sliderList.value.offsetWidth))
 
 </script>
 

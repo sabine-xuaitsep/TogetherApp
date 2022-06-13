@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useActivitiesStore } from './../store/activities'
 import { useRoute } from 'vue-router'
 

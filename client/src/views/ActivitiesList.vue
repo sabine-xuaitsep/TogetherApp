@@ -17,9 +17,7 @@ const activities = ref(null),
 activitiesStore.fetch(route.params.query)
 
 fetchValues()
-watch(activitiesStore, () => {
-  fetchValues()
-})
+watch(activitiesStore, () => fetchValues())
 
 function fetchValues() {
   activities.value = activitiesStore[route.params.query].result

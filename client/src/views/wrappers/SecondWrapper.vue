@@ -19,9 +19,7 @@ const barColor = route.name === 'filters'
   ? 'bg-custom-color-light/50' 
   : 'bg-custom-color-black/25'
 
-onMounted(() => {
-  heroOffsetTop.value = document.getElementById('heroTitle').offsetTop
-})
+onMounted(() => heroOffsetTop.value = document.getElementById('heroTitle').offsetTop)
 
 function calcScrollTop() {
   appScrollTop.value = appBox.value.scrollTop

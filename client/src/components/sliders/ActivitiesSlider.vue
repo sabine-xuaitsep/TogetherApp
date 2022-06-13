@@ -1,6 +1,6 @@
 <script setup>
 
-import { onBeforeMount, onUpdated, ref, watch } from 'vue'
+import { onBeforeMount, onMounted, onUpdated, ref, watch } from 'vue'
 import { useActivitiesStore } from './../../store/activities'
 import ActivityCardVue from './../cards/ActivityCard.vue'
 import ActivityCardLoadingVue from './../cards/ActivityCardLoading.vue'
@@ -22,9 +22,7 @@ const activities = ref(null),
 activitiesStore.fetch(graphql.query, graphql.args)
 
 fetchValues()
-watch(activitiesStore, () => {
-  fetchValues()
-})
+watch(activitiesStore, () => fetchValues())
 
 function fetchValues() {
   activities.value = activitiesStore[graphql.query].result
@@ -32,18 +30,15 @@ function fetchValues() {
   error.value = activitiesStore[graphql.query].error
 }
 
-onBeforeMount(() => {
-  emit('custom-class', {
-    wrapper: "mt-6 pb-14 pl-6",
-    arrowBox: "h-[294px]",
-    arrowLink: "w-20 h-20",
-    arrow: "w-10 h-10"
-  })
-})
+onBeforeMount(() => emit('custom-class', {
+  wrapper: "mt-6 pb-14 pl-6",
+  arrowBox: "h-[294px]",
+  arrowLink: "w-20 h-20",
+  arrow: "w-10 h-10"
+}))
 
-onUpdated(() => {
-  emit('offset-width', sliderList.value.offsetWidth)
-})
+onMounted(() => emit('offset-width', sliderList.value.offsetWidth))
+onUpdated(() => emit('offset-width', sliderList.value.offsetWidth))
 
 </script>
 

@@ -2,9 +2,7 @@
 
 import { onMounted } from 'vue'
 
-onMounted(() => {
-  document.getElementById('barTitle').innerText = "Filtrer les activités"
-})
+onMounted(() => document.getElementById('barTitle').innerText = "Filtrer les activités")
 
 </script>
 
