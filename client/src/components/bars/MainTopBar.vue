@@ -10,17 +10,17 @@ const emit = defineEmits(['offset-height'])
 
 const activitiesStore = useActivitiesStore()
 
-const mainTopBar = ref(null),
+const barBox = ref(null),
       searchbarInput = ref(null)
 
 const isHiddenIcon = ref(false),
-      treshold = ref(null)
+      threshold = ref(null)
 
-const sticky = computed(() => scroll.wrapperPosition >= treshold.value)
+const sticky = computed(() => scroll.wrapperPosition >= threshold.value)
 
 onMounted(() => {
-  treshold.value = mainTopBar.value.offsetTop
-  emit('offset-height', mainTopBar.value.offsetHeight)
+  threshold.value = barBox.value.offsetTop
+  emit('offset-height', barBox.value.offsetHeight)
 })
 
 watch(scroll, () => {
@@ -33,7 +33,7 @@ watch(scroll, () => {
 
 <template>
   <div 
-    ref="mainTopBar"
+    ref="barBox"
     :class="{ 'sticky top-0 z-30 bg-slate-50 text-custom-color-black': sticky }"
     class="flex py-2 pl-6 pr-8">
 

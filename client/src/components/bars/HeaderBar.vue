@@ -11,8 +11,8 @@ const bar = defineProps({
 
 const router = useRouter()
 
-const headerBox = ref(null), 
-      headerTitle = ref(null)
+const barBox = ref(null), 
+      barTitle = ref(null)
 
 const header = { color: null, opacity: null }
 const title = { color: null, opacity: null }
@@ -23,17 +23,25 @@ const computedHeaderColor = computed(() => caclColor(header, 'background-color')
 const computedTitleColor = computed(() => caclColor(title, 'color'))
 
 onMounted(() => {
-  header.color = getColor(headerBox.value, 'backgroundColor')
-  title.color = getColor(headerTitle.value, 'color')
+  header.color = getColor(barBox.value, 'backgroundColor')
+  title.color = getColor(barTitle.value, 'color')
 })
 
 onUpdated(() => {
   if (header.color.length === 4 && title.color.length === 4) {
-    threshold.value = bar.heroOffsetTop - headerBox.value.offsetHeight 
+    threshold.value = bar.heroOffsetTop - barBox.value.offsetHeight 
     storeProp(header)
     storeProp(title)
   }
 })
+
+function caclColor(el, prop) {
+  return (threshold.value < bar.boxScrollTop) 
+  ? `${prop}: rgba(${el.color}, 1)`
+  : (computedOpacity.value > el.opacity) 
+    ? `${prop}: rgba(${el.color}, ${computedOpacity.value})` 
+    : `${prop}: rgba(${el.color}, ${el.opacity})`
+}
 
 function getColor(el, prop) {
   return getComputedStyle(el)[prop].replace(/[a-z()]/g, '').split(', ') 
@@ -44,19 +52,11 @@ function storeProp(el) {
   el.color = `${el.color[0]}, ${el.color[1]}, ${el.color[2]}`
 }
 
-function caclColor(el, prop) {
-  return (threshold.value < bar.boxScrollTop) 
-  ? `${prop}: rgba(${el.color}, 1)`
-  : (computedOpacity.value > el.opacity) 
-    ? `${prop}: rgba(${el.color}, ${computedOpacity.value})` 
-    : `${prop}: rgba(${el.color}, ${el.opacity})`
-}
-
 </script>
 
 <template>
   <header 
-    ref="headerBox" 
+    ref="barBox" 
     :style="computedHeaderColor"
     :class="barColor"
     class="fixed z-20 flex items-center justify-between w-screen pl-4 pr-6 py-3">
@@ -65,7 +65,7 @@ function caclColor(el, prop) {
       <svg class="min-w-fit h-6 stroke-slate-50" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
     </a>
     <h1 
-      ref="headerTitle" 
+      ref="barTitle" 
       id="barTitle"
       :style="computedTitleColor"
       class="ml-4 mr-3 truncate font-bold text-slate-50/0">
