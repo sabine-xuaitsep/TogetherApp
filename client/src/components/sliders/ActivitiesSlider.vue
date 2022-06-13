@@ -21,15 +21,16 @@ const activities = ref(null),
 
 activitiesStore.fetch(graphql.query, graphql.args)
 
-activities.value = activitiesStore[graphql.query].result
-loading.value = activitiesStore[graphql.query].loading
-error.value = activitiesStore[graphql.query].error
-
-watch(activitiesStore, (state) => {
-  activities.value = state[graphql.query].result
-  loading.value = state[graphql.query].loading
-  error.value = state[graphql.query].error
+fetchValues()
+watch(activitiesStore, () => {
+  fetchValues()
 })
+
+function fetchValues() {
+  activities.value = activitiesStore[graphql.query].result
+  loading.value = activitiesStore[graphql.query].loading
+  error.value = activitiesStore[graphql.query].error
+}
 
 onBeforeMount(() => {
   emit('custom-class', {

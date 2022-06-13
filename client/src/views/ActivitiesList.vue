@@ -16,15 +16,16 @@ const activities = ref(null),
 
 activitiesStore.fetch(route.params.query)
 
-activities.value = activitiesStore[route.params.query].result
-loading.value = activitiesStore[route.params.query].loading
-error.value = activitiesStore[route.params.query].error
-
-watch(activitiesStore, (state) => {
-  activities.value = state[route.params.query].result
-  loading.value = state[route.params.query].loading
-  error.value = state[route.params.query].error
+fetchValues()
+watch(activitiesStore, () => {
+  fetchValues()
 })
+
+function fetchValues() {
+  activities.value = activitiesStore[route.params.query].result
+  loading.value = activitiesStore[route.params.query].loading
+  error.value = activitiesStore[route.params.query].error
+}
 
 </script>
 
