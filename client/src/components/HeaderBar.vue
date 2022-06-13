@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 
 const bar = defineProps({
   barTitle: String,
+  barColor: String,
   boxScrollTop: Number,
   heroOffsetTop: Number
 })
@@ -58,7 +59,8 @@ function caclColor(el, prop) {
   <header 
     ref="headerBox" 
     :style="computedHeaderColor"
-    class="fixed z-20 flex items-center justify-between w-screen pl-4 pr-6 py-3 bg-custom-color-black/25">
+    :class="barColor"
+    class="fixed z-20 flex items-center justify-between w-screen pl-4 pr-6 py-3">
     <a @click.prevent="router.back()" href="#">
       <svg class="min-w-fit h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
     </a>

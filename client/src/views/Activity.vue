@@ -38,6 +38,7 @@ function calcScrollTop() {
 
     <HeaderBarVue
       v-if="activity" 
+      barColor="bg-custom-color-black/25"
       :barTitle="activity.title" 
       :boxScrollTop="appScrollTop" 
       :heroOffsetTop="heroOffsetTop" 

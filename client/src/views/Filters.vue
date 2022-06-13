@@ -19,9 +19,10 @@ function calcScrollTop() {
   <div 
     ref="appBox" 
     @scroll="calcScrollTop"
-    class="grow overflow-y-auto text-custom-color-black bg-custom-color-light bg-opacity-10">
+    class="grow overflow-y-auto text-custom-color-black bg-slate-50">
 
     <HeaderBarVue
+      barColor="bg-custom-color-light/50"
       barTitle="Filtrer les activités" 
       :boxScrollTop="appScrollTop" 
       :heroOffsetTop="heroOffsetTop" 
