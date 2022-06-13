@@ -1,27 +1,30 @@
 <script setup>
 
-import { computed } from 'vue'
-import { useUserStore } from './../store/user'
+import { ref, watch } from 'vue'
+import { useActivitiesStore } from './../store/activities'
 import { useRoute } from 'vue-router'
-import { useQuery } from '@vue/apollo-composable'
-import { activitiesByDateQuery } from './../graphql/activities'
-import { activitiesByDistQuery } from './../graphql/activities'
 import ActivityCardVue from './../components/ActivityCard.vue'
 import ActivityCardLoadingVue from './../components/ActivityCardLoading.vue'
 
-const userStore = useUserStore(),
-      route = useRoute()
+const activitiesStore = useActivitiesStore()
+      
+const route = useRoute() 
 
-const userLatitude = computed(() => userStore.user.latitude)
-const userLongitude = computed(() => userStore.user.longitude)
+const activities = ref(null), 
+      loading = ref(true),
+      error = ref(null)
 
-const queries = {
-  'activitiesByDate': activitiesByDateQuery,
-  'activitiesByDist': activitiesByDistQuery
-}
+activitiesStore.fetch(route.params.query)
 
-const { result, loading, error } = useQuery(queries[route.params.query], { latitude: userLatitude, longitude: userLongitude })
-const activities = computed(() => result.value?.[route.params.query] ?? [])
+activities.value = activitiesStore[route.params.query].result
+loading.value = activitiesStore[route.params.query].loading
+error.value = activitiesStore[route.params.query].error
+
+watch(activitiesStore, (state) => {
+  activities.value = state[route.params.query].result
+  loading.value = state[route.params.query].loading
+  error.value = state[route.params.query].error
+})
 
 </script>
 
@@ -29,7 +32,7 @@ const activities = computed(() => result.value?.[route.params.query] ?? [])
   <!-- activities filtered -->
   <section>
     <h2 class="pt-6 pl-6 font-bold text-xl">
-      <span v-if="loading || error">Chargement</span>
+      <span v-if="loading || error || !activities">Chargement</span>
       <span v-else-if="activities.length === 0">Aucun résultat</span>
       <span v-else>Activités</span>
     </h2>
@@ -38,7 +41,7 @@ const activities = computed(() => result.value?.[route.params.query] ?? [])
     
       <ActivityCardLoadingVue v-if="loading || error" customClass="mb-6" />
 
-      <ActivityCardVue v-if="activities.length !== 0" v-for="activity of activities" :key="activity.id" :activity="activity" customClass="mb-6" />
+      <ActivityCardVue v-if="activities" v-for="activity of activities" :key="activity.id" :activity="activity" customClass="mb-6" />
 
     </ul>
   </section>

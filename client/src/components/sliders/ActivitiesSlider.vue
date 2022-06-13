@@ -1,9 +1,7 @@
 <script setup>
 
-import { computed, onBeforeMount, onUpdated, ref } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
-import { activitiesByDateQuery } from './../../graphql/activities'
-import { activitiesByDistQuery } from './../../graphql/activities'
+import { onBeforeMount, onUpdated, ref, watch } from 'vue'
+import { useActivitiesStore } from './../../store/activities'
 import ActivityCardVue from './../ActivityCard.vue'
 import ActivityCardLoadingVue from './../ActivityCardLoading.vue'
 
@@ -13,15 +11,25 @@ const graphql = defineProps({
 })
 const emit = defineEmits(['offset-width', 'custom-class'])
 
+const activitiesStore = useActivitiesStore()
+
 const sliderList = ref(null)
 
-const queries = {
-  'activitiesByDate': activitiesByDateQuery,
-  'activitiesByDist': activitiesByDistQuery
-}
+const activities = ref(null), 
+      loading = ref(true),
+      error = ref(null)
 
-const { result, loading, error } = useQuery(queries[graphql.query], graphql.args)
-const activities = computed(() => result.value?.[graphql.query] ?? [])
+activitiesStore.fetch(graphql.query, graphql.args)
+
+activities.value = activitiesStore[graphql.query].result
+loading.value = activitiesStore[graphql.query].loading
+error.value = activitiesStore[graphql.query].error
+
+watch(activitiesStore, (state) => {
+  activities.value = state[graphql.query].result
+  loading.value = state[graphql.query].loading
+  error.value = state[graphql.query].error
+})
 
 onBeforeMount(() => {
   emit('custom-class', {
@@ -43,7 +51,7 @@ onUpdated(() => {
     ref="sliderList" 
     class="flex flex-nowrap text-xs pr-6">
 
-    <ActivityCardLoadingVue v-if="loading || error || activities.length === 0" />
+    <ActivityCardLoadingVue v-if="loading || error || !activities || activities.length === 0" />
 
     <ActivityCardVue v-else v-for="activity of activities" :key="activity.id" :activity="activity" />
 

@@ -1,30 +1,28 @@
 <script setup>
 
-import { computed, onMounted, ref } from 'vue'
-import { useUserStore } from './../store/user'
+import { computed, ref, watch } from 'vue'
+import { useActivitiesStore } from './../store/activities'
 import { useRoute } from 'vue-router'
-import { useQuery } from '@vue/apollo-composable'
-import { activityQuery } from './../graphql/activities'
 import HeaderBarVue from './../components/HeaderBar.vue'
 
-const userStore = useUserStore(), 
+const activitiesStore = useActivitiesStore(), 
       route = useRoute()
 
-const userLatitude = computed(() => userStore.user.latitude)
-const userLongitude = computed(() => userStore.user.longitude)
+const activity = ref(null)
 
-const { result } = useQuery(activityQuery, { id: route.params.id, latitude: userLatitude, longitude: userLongitude })
-const activity = computed(() => result.value?.activity ?? [])
+activitiesStore.fetch('activity', { id: route.params.id })
+
+activity.value = activitiesStore['activity'].result
+
+watch(activitiesStore, (state) => {
+  activity.value = activitiesStore['activity'].result
+})
 
 const appBox = ref(null),
       heroTitle = ref(null)
       
-const appScrollTop = ref(0),
-      heroOffsetTop = ref(null)
-
-onMounted(() => {
-  heroOffsetTop.value = heroTitle.value.offsetTop
-})
+const appScrollTop = ref(0)
+const heroOffsetTop = computed(() => heroTitle.value?.offsetTop)
 
 function calcScrollTop() {
   appScrollTop.value = appBox.value.scrollTop
@@ -38,10 +36,15 @@ function calcScrollTop() {
     @scroll="calcScrollTop"
     class="grow overflow-y-auto text-slate-50">
 
-    <HeaderBarVue :barTitle="activity.title" :boxScrollTop="appScrollTop" :heroOffsetTop="heroOffsetTop" />
+    <HeaderBarVue
+      v-if="activity" 
+      :barTitle="activity.title" 
+      :boxScrollTop="appScrollTop" 
+      :heroOffsetTop="heroOffsetTop" 
+    />
 
     <main>
-      <article>
+      <article v-if="activity">
         <header class="relative">
           
           <h2 

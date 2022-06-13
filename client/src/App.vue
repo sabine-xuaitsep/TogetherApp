@@ -4,23 +4,17 @@ import { ref } from 'vue'
 import { useUserStore } from './store/user'
 import Err404Vue from './views/Err404.vue'
 
-const userStore = useUserStore()
+const userStore = useUserStore() 
 
-const userLoading = ref(true),
-      offline = ref(!navigator.onLine)
+const offline = ref(!navigator.onLine)
 
 userStore.locateUser()
-
-userStore.$subscribe((mutation, state) => {
-  userLoading.value = state.user.loading
-  // sessionStorage.setItem('user', JSON.stringify(state.user))
-})
 
 </script>
 
 <template>
   <div 
-    :class="{ 'bg-custom-color-dark': userLoading, 'bg-gradient-to-t from-custom-color-normal via-custom-color-light to-custom-color-light' : !userLoading }"
+    :class="{ 'bg-custom-color-dark': !userStore.isReady, 'bg-gradient-to-t from-custom-color-normal via-custom-color-light to-custom-color-light' : userStore.isReady }"
     class="flex flex-col w-screen h-screen">
 
     <Err404Vue v-if="offline" />

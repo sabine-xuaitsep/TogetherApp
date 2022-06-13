@@ -1,16 +1,9 @@
 <script setup>
 
-import { computed, reactive } from 'vue'
-import { useUserStore } from './../store/user'
 import SliderVue from './../components/sliders/Slider.vue'
 
-const userStore = useUserStore()
-
-const userLatitude = computed(() => userStore.user.latitude)
-const userLongitude = computed(() => userStore.user.longitude)
-
-const argsActivitiesByDist = reactive({ latitude: userLatitude, longitude: userLongitude, distance: 300000, limit: 5 })
-const argsActivitiesByDate = reactive({ latitude: userLatitude, longitude: userLongitude, limit: 5 })
+const argsActivitiesByDist = { distance: 300000, limit: 5 }
+const argsActivitiesByDate = { limit: 5 }
 
 </script>
 

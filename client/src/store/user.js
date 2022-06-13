@@ -12,7 +12,9 @@ export const useUserStore = defineStore('user', {
       loading: true
     },
   }),
-  getters: {},
+  getters: {
+    isReady: (state) => !state.user.loading,
+  },
   actions: {
     locateUser() {
       navigator.geolocation.getCurrentPosition(
