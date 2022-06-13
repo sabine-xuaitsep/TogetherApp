@@ -39,8 +39,13 @@ export default [
     component: Filters,
   },
   {
-    path: "/404",
+    path: "/404/:type",
     name: "404",
+    component: Err404,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "err404",
     component: Err404,
   },
 ]

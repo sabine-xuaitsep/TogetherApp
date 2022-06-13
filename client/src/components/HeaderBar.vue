@@ -70,15 +70,15 @@ function caclColor(el, prop) {
     </h1>
     <div class="flex">
       <div class="min-w-fit ml-3">
-        <a href="#bookmark" class="flex items-center justify-center w-8 h-8 bg-slate-50 rounded-full">
+        <router-link :to="{ name: '404', params: { type: 'bookmarks' } }" class="flex items-center justify-center w-8 h-8 bg-slate-50 rounded-full">
           <svg class="w-4 h-4 text-custom-color-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
-        </a>
+        </router-link>
       </div>
       <!-- display if user owns activity -->
       <div class="min-w-fit ml-3">
-        <a href="activity_edit.html" class="flex items-center justify-center w-8 h-8 bg-slate-50 rounded-full">
+        <router-link :to="{ name: '404', params: { type: 'auth' } }" class="flex items-center justify-center w-8 h-8 bg-slate-50 rounded-full">
           <svg class="w-4 h-4 text-custom-color-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-        </a>
+        </router-link>
       </div>
       <!-- end display if user owns activity -->
     </div>
