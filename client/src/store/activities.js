@@ -11,6 +11,7 @@ provideApolloClient(apolloClient)
 
 export const useActivitiesStore = defineStore("activities", {
   state: () => ({
+    searchContent: null,
     activitiesByDist: {
       result: null,
       loading: null,
@@ -27,7 +28,15 @@ export const useActivitiesStore = defineStore("activities", {
       error: null,
     },
   }),
-  getters: {},
+  getters: {
+    getFiltered() {
+      return this.searchContent 
+        ? this.activitiesByDist.result.filter((activity) =>
+          activity.title.toLowerCase().replace(/é|è|ê/g, "e").includes(this.searchContent.toLowerCase().replace(/é|è|ê/g, "e")
+          || activity.description.toLowerCase().replace(/é|è|ê/g, "e").includes(this.searchContent.toLowerCase().replace(/é|è|ê/g, "e"))))
+        : this.activitiesByDist.result
+    },
+  },
   actions: {
     fetch(query, args = null) {
       const userStore = useUserStore()

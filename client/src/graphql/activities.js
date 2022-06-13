@@ -35,30 +35,6 @@ export const activityQuery = gql`
   }
 `;
 
-export const activitiesQuery = gql`
-  query activities {
-    activities {
-      id
-      title
-      image
-      date
-      city
-      maxParticipants
-      registeredParticipants
-      category {
-        id
-        name
-      }
-      latitude
-      longitude
-      user {
-        id
-        firstName
-      }
-    }
-  }
-`;
-
 export const activitiesByDistQuery = gql`
   query activitiesByDist($latitude: Float!, $longitude: Float!, $distance: Int, $limit: Int) {
     activitiesByDist(latitude: $latitude, longitude: $longitude, distance: $distance, limit: $limit) {
@@ -67,6 +43,8 @@ export const activitiesByDistQuery = gql`
       image
       date
       city
+      latitude
+      longitude
       distance
       maxParticipants
       registeredParticipants
@@ -90,6 +68,8 @@ export const activitiesByDateQuery = gql`
       image
       date
       city
+      latitude
+      longitude
       distance
       maxParticipants
       registeredParticipants

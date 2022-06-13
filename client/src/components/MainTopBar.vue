@@ -1,11 +1,14 @@
 <script setup>
 
 import { computed, onMounted, ref, watch } from 'vue'
+import { useActivitiesStore } from './../store/activities'
 
 const scroll = defineProps({
   wrapperPosition: Number
 })
 const emit = defineEmits(['offset-height'])
+
+const activitiesStore = useActivitiesStore()
 
 const mainTopBar = ref(null),
       searchbarInput = ref(null)
@@ -44,13 +47,14 @@ watch(scroll, () => {
       </svg>
       <input 
         ref="searchbarInput"
+        v-model="activitiesStore.searchContent"
         @focus="isHiddenIcon = true"
         @blur="isHiddenIcon = false"
         :class="{ 
           'bg-custom-color-dark focus:ring-1 focus:ring-slate-50 placeholder:text-slate-50/50': !sticky,  
           'bg-slate-50 ring-1 ring-custom-color-black focus:ring-custom-color-light placeholder:opacity-50': sticky 
         }"
-        class="grow py-1 pl-9 pr-4 rounded-xl focus:outline-none placeholder:text-sm" placeholder="Chercher des activités" type="text" name="search" size="3" 
+        class="grow py-1 pl-9 pr-4 rounded-xl focus:outline-none placeholder:text-sm" placeholder="Chercher des activités" type="text" size="3" 
       />
     </label>
     <!-- end of searchbar -->
