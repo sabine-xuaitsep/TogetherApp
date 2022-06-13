@@ -1,4 +1,5 @@
 import MainWrapper from './../views/wrappers/MainWrapper.vue'
+import SecondWrapper from './../views/wrappers/SecondWrapper.vue'
 import Home from './../views/Home.vue'
 import Filters from './../views/Filters.vue'
 import Map from './../views/Map.vue'
@@ -17,26 +18,32 @@ export default [
         component: Home,
       },
       {
-        path: "/map",
+        path: "map",
         name: "map",
         component: Map,
       },
       {
-        path: "/activities/:query",
+        path: "activities/:query",
         name: "activities",
         component: ActivitiesList,
       },
     ]
   },
   {
-    path: "/activity/:id",
-    name: "activity",
-    component: Activity,
-  },
-  {
-    path: "/filters",
-    name: "filters",
-    component: Filters,
+    path: "/",
+    component: SecondWrapper,
+    children: [
+      {
+        path: "/activity/:id",
+        name: "activity",
+        component: Activity,
+      },
+      {
+        path: "/filters",
+        name: "filters",
+        component: Filters,
+      },
+    ]
   },
   {
     path: "/404/:type",
