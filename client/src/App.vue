@@ -2,9 +2,11 @@
 
 import { ref } from 'vue'
 import { useUserStore } from './store/user'
+import { useRoute } from 'vue-router'
 import Err404Vue from './views/Err404.vue'
 
 const userStore = useUserStore() 
+const route = useRoute()
 
 const offline = ref(!navigator.onLine)
 
@@ -14,7 +16,11 @@ userStore.locateUser()
 
 <template>
   <div 
-    :class="{ 'bg-custom-color-dark': !userStore.isReady, 'bg-gradient-to-t from-custom-color-normal via-custom-color-light to-custom-color-light' : userStore.isReady }"
+    :class="{ 
+      'bg-custom-color-dark': !userStore.isReady, 
+      'bg-gradient-to-t from-custom-color-normal via-custom-color-light to-custom-color-light' : userStore.isReady && route.name !== 'filters', 
+      'bg-custom-color-white': route.name == 'filters'
+    }"
     class="flex flex-col w-screen h-screen">
 
     <Err404Vue v-if="offline" />

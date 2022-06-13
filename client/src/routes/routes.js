@@ -1,5 +1,6 @@
 import MainWrapper from './../views/wrappers/MainWrapper.vue'
 import Home from './../views/Home.vue'
+import Filters from './../views/Filters.vue'
 import Map from './../views/Map.vue'
 import ActivitiesList from './../views/ActivitiesList.vue'
 import Activity from './../views/Activity.vue'
@@ -31,6 +32,11 @@ export default [
     path: "/activity/:id",
     name: "activity",
     component: Activity,
+  },
+  {
+    path: "/filters",
+    name: "filters",
+    component: Filters,
   },
   {
     path: "/404",
