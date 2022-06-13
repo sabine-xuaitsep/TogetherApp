@@ -1,7 +1,7 @@
 <script setup>
 
 import { computed, onMounted, ref, watch } from 'vue'
-import { useActivitiesStore } from './../store/activities'
+import { useActivitiesStore } from './../../store/activities'
 
 const scroll = defineProps({
   wrapperPosition: Number

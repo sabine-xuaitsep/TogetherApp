@@ -2,8 +2,8 @@
 
 import { onBeforeMount, onUpdated, ref, watch } from 'vue'
 import { useActivitiesStore } from './../../store/activities'
-import ActivityCardVue from './../ActivityCard.vue'
-import ActivityCardLoadingVue from './../ActivityCardLoading.vue'
+import ActivityCardVue from './../cards/ActivityCard.vue'
+import ActivityCardLoadingVue from './../cards/ActivityCardLoading.vue'
 
 const graphql = defineProps({
   query: String,

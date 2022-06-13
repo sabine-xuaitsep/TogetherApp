@@ -3,7 +3,7 @@
 import { computed, ref, watch } from 'vue'
 import { useActivitiesStore } from './../store/activities'
 import { useRoute } from 'vue-router'
-import HeaderBarVue from './../components/HeaderBar.vue'
+import HeaderBarVue from './../components/bars/HeaderBar.vue'
 
 const activitiesStore = useActivitiesStore(), 
       route = useRoute()

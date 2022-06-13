@@ -1,7 +1,7 @@
 <script setup>
 
 import { computed, ref } from 'vue'
-import HeaderBarVue from './../components/HeaderBar.vue'
+import HeaderBarVue from './../components/bars/HeaderBar.vue'
 
 const appBox = ref(null),
       heroTitle = ref(null)

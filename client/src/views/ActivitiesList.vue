@@ -3,8 +3,8 @@
 import { ref, watch } from 'vue'
 import { useActivitiesStore } from './../store/activities'
 import { useRoute } from 'vue-router'
-import ActivityCardVue from './../components/ActivityCard.vue'
-import ActivityCardLoadingVue from './../components/ActivityCardLoading.vue'
+import ActivityCardVue from './../components/cards/ActivityCard.vue'
+import ActivityCardLoadingVue from './../components/cards/ActivityCardLoading.vue'
 
 const activitiesStore = useActivitiesStore()
       

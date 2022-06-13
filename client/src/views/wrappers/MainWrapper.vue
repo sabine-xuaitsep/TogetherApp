@@ -2,7 +2,7 @@
 
 import { onUpdated, ref  } from 'vue'
 import { useRoute } from 'vue-router'
-import MainTopBarVue from './../../components/MainTopBar.vue'
+import MainTopBarVue from './../../components/bars/MainTopBar.vue'
 
 const wrapper = ref(null),
       header = ref(null)
