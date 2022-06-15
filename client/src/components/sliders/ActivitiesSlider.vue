@@ -6,29 +6,18 @@ import ActivityCardVue from './../cards/ActivityCard.vue'
 import ActivityCardLoadingVue from './../cards/ActivityCardLoading.vue'
 
 const graphql = defineProps({
-  query: String,
-  args: Object
+  query: String
 })
+
 const emit = defineEmits(['offset-width', 'custom-class'])
 
-const activitiesStore = useActivitiesStore()
-
 const sliderList = ref(null)
+
+const activitiesStore = useActivitiesStore()
 
 const activities = ref(null), 
       loading = ref(true),
       error = ref(null)
-
-activitiesStore.fetch(graphql.query, graphql.args)
-
-fetchValues()
-watch(activitiesStore, () => fetchValues())
-
-function fetchValues() {
-  activities.value = activitiesStore[graphql.query].result
-  loading.value = activitiesStore[graphql.query].loading
-  error.value = activitiesStore[graphql.query].error
-}
 
 onBeforeMount(() => emit('custom-class', {
   wrapper: "mt-6 pb-14 pl-6",
@@ -39,6 +28,16 @@ onBeforeMount(() => emit('custom-class', {
 
 onMounted(() => emit('offset-width', sliderList.value.offsetWidth))
 onUpdated(() => emit('offset-width', sliderList.value.offsetWidth))
+
+fetchValues()
+watch(activitiesStore, () => fetchValues())
+
+function fetchValues() {
+  loading.value = activitiesStore[graphql.query].loading
+  error.value = activitiesStore[graphql.query].error
+    if(loading.value === false && !error.value) 
+      activities.value = activitiesStore[graphql.query].result?.slice(0,5)
+}
 
 </script>
 

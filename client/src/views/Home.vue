@@ -2,9 +2,6 @@
 
 import SliderVue from './../components/sliders/Slider.vue'
 
-const argsActivitiesByDist = { distance: 300000, limit: 5 }
-const argsActivitiesByDate = { limit: 5 }
-
 </script>
 
 <template>
@@ -20,7 +17,7 @@ const argsActivitiesByDate = { limit: 5 }
   <section>
     <h2 class="pt-6 pl-6 font-bold text-xl">Activités à proximité</h2>
 
-    <SliderVue content="activities" query="activitiesByDist" :args="argsActivitiesByDist" />
+    <SliderVue content="activities" query="activitiesByDist" />
   </section>
   <!-- end activities by distance -->
   
@@ -28,7 +25,7 @@ const argsActivitiesByDate = { limit: 5 }
   <section>
     <h2 class="pt-6 pl-6 font-bold text-xl">Prochaines activités</h2>
 
-    <SliderVue content="activities" query="activitiesByDate" :args="argsActivitiesByDate" />
+    <SliderVue content="activities" query="activitiesByDate" />
   </section>
   <!-- end activities by date -->
 </template>

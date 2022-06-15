@@ -6,8 +6,7 @@ import CategoriesSliderVue from './CategoriesSlider.vue'
 
 defineProps({
   content: String, 
-  query: String,
-  args: Object
+  query: String
 })
 
 const wrapper = ref(null), 
@@ -104,7 +103,6 @@ window.addEventListener('resize', () => checkArrowVisibility());
 
     <ActivitiesSliderVue v-if="content === 'activities'"
       :query="query"
-      :args="args"
       @offset-width="setListOffsetWidth"
       @custom-class="setCustomClass" 
     />

@@ -6,9 +6,6 @@ import { categoriesQuery } from './../../graphql/categories'
 
 const emit = defineEmits(['offset-width', 'custom-class'])
 
-const { result, loading, error  } = useQuery(categoriesQuery)
-const categories = computed(() => result.value?.categories ?? [])
-
 const sliderList = ref(null)
 
 onBeforeMount(() => emit('custom-class', {
@@ -20,6 +17,9 @@ onBeforeMount(() => emit('custom-class', {
 
 onMounted(() => emit('offset-width', sliderList.value.offsetWidth))
 onUpdated(() => emit('offset-width', sliderList.value.offsetWidth))
+
+const { result, loading, error  } = useQuery(categoriesQuery)
+const categories = computed(() => result.value?.categories ?? [])
 
 </script>
 

@@ -36,12 +36,14 @@ export const activityQuery = gql`
 `;
 
 export const activitiesByDistQuery = gql`
-  query activitiesByDist($latitude: Float!, $longitude: Float!, $distance: Int, $limit: Int) {
-    activitiesByDist(latitude: $latitude, longitude: $longitude, distance: $distance, limit: $limit) {
+  query activitiesByDist($latitude: Float!, $longitude: Float!, $distance: Int, $limit: Int, $order: String) {
+    activitiesByDist(latitude: $latitude, longitude: $longitude, distance: $distance, limit: $limit, order: $order) {
       id
       title
       image
+      description
       date
+      time
       city
       latitude
       longitude
@@ -61,12 +63,14 @@ export const activitiesByDistQuery = gql`
 `;
 
 export const activitiesByDateQuery = gql`
-  query activitiesByDate($latitude: Float!, $longitude: Float!, $limit: Int) {
-    activitiesByDate(latitude: $latitude, longitude: $longitude, limit: $limit) {
+  query activitiesByDate($latitude: Float!, $longitude: Float!, $limit: Int, $order: String) {
+    activitiesByDate(latitude: $latitude, longitude: $longitude, limit: $limit, order: $order) {
       id
       title
       image
+      description
       date
+      time
       city
       latitude
       longitude

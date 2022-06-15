@@ -1,14 +1,18 @@
 <script setup>
 
 import { ref } from 'vue'
+import { useActivitiesStore } from './store/activities'
 import { useUserStore } from './store/user'
 import Err404Vue from './views/Err404.vue'
 
+const activitiesStore = useActivitiesStore() 
 const userStore = useUserStore() 
 
 const offline = ref(!navigator.onLine)
 
 userStore.locateUser()
+activitiesStore.fetch('activitiesByDist')
+activitiesStore.fetch('activitiesByDate')
 
 </script>
 

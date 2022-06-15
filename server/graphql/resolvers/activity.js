@@ -2,10 +2,7 @@ const { Op } = require("sequelize");
 
 const activityResolver = {
   Query: {
-    activities(parent, args, { models: { Activity } }) {
-      return Activity.findAll();
-    },
-    activitiesByDate(parent, { latitude, longitude, limit = 100 }, { models: { Activity, sequelize } }) {
+    activitiesByDate(parent, { latitude, longitude, limit = 100, order = 'ASC' }, { models: { Activity, sequelize } }) {
       return Activity.findAll({
         attributes: {
           include: [
@@ -16,13 +13,13 @@ const activityResolver = {
           date: { [Op.gte]: new Date() }
         },
         order: [
-          ['date', 'ASC'],
-          ['time', 'ASC']
+          ['date', order],
+          ['time', order]
         ],
         limit: limit
       });
     },
-    activitiesByDist(parent, { latitude, longitude, distance = 300000, limit = 100 }, { models: { Activity, sequelize } }) {
+    activitiesByDist(parent, { latitude, longitude, distance = 300000, limit = 100, order = 'ASC' }, { models: { Activity, sequelize } }) {
       return Activity.findAll({
         attributes: {
           include: [
@@ -34,7 +31,7 @@ const activityResolver = {
           date: { [Op.gte]: new Date() }
         },
         order: [
-          [ sequelize.col('distance'), 'ASC' ]
+          [ sequelize.col('distance'), order ]
         ],
         limit: limit
       });

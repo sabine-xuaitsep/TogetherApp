@@ -11,7 +11,10 @@ provideApolloClient(apolloClient)
 
 export const useActivitiesStore = defineStore("activities", {
   state: () => ({
-    searchContent: null,
+    searchContent: '',
+    query: 'activitiesByDist',
+    distance: null,
+    order: 'ASC',
     activitiesByDist: {
       result: null,
       loading: null,
@@ -29,12 +32,16 @@ export const useActivitiesStore = defineStore("activities", {
     },
   }),
   getters: {
-    getFiltered() {
-      return this.searchContent 
-        ? this.activitiesByDist.result.filter((activity) =>
-          activity.title.toLowerCase().replace(/é|è|ê/g, "e").includes(this.searchContent.toLowerCase().replace(/é|è|ê/g, "e")
-          || activity.description.toLowerCase().replace(/é|è|ê/g, "e").includes(this.searchContent.toLowerCase().replace(/é|è|ê/g, "e"))))
-        : this.activitiesByDist.result
+    getSearchContent: (state) => state.searchContent.length === 0 
+      ? state.searchContent
+      : state.handleString(state.searchContent),
+    getActivities: (state) => {
+      if(state[state.query].result) {
+        const activities = state[state.query].result
+        return state.order === 'ASC' 
+          ? activities.filter(activity => state.matchWithSearch(activity)) 
+          : [...activities].reverse().filter(activity => state.matchWithSearch(activity)) 
+      }
     },
   },
   actions: {
@@ -61,6 +68,30 @@ export const useActivitiesStore = defineStore("activities", {
       this[query].loading = loading
       this[query].error = error
       this[query].result = computed(() => result.value?.[query]) 
-    }
+    },
+    matchWithSearch(activity) {
+      const searchArr = this.getSearchContent.split(' ')
+      
+      if (searchArr.length === 1) {
+        return this.handleString(activity.category.name).includes(this.getSearchContent)
+              || this.handleString(activity.title).includes(this.getSearchContent)
+              || this.handleString(activity.description).includes(this.getSearchContent)
+      } 
+      else {
+        const match = searchArr.map(word => {
+          if(word.length > 0)
+            return this.handleString(activity.category.name).includes(word)
+                  || this.handleString(activity.title).includes(word)
+                  || this.handleString(activity.description).includes(word)
+        })
+        return match.includes(true)
+      }
+    },
+    handleString(str) {
+      return str.replace(/[áâàä]/g,'a').replace(/[éêèë]/g,'e')
+                .replace(/[íîïì]/g,'i').replace(/[öóôò]/g,'o')
+                .replace(/[úûùü]/g,'i').replace(/[ç]/g,'c')
+                .toLowerCase()
+    },
   },
 });
