@@ -1,12 +1,17 @@
 <script setup>
 
-import { computed, onMounted, onBeforeMount, onUpdated, ref } from 'vue'
-import { useQuery } from '@vue/apollo-composable'
-import { categoriesQuery } from './../../graphql/categories'
+import { onMounted, onBeforeMount, onUpdated, ref, watch } from 'vue'
+import { useCategoriesStore } from './../../store/categories'
 
 const emit = defineEmits(['offset-width', 'custom-class'])
 
 const sliderList = ref(null)
+
+const categoriesStore = useCategoriesStore()
+
+const categories = ref(null), 
+      loading = ref(true),
+      error = ref(null)
 
 onBeforeMount(() => emit('custom-class', {
   wrapper: "mt-8 mb-7 px-6",
@@ -18,8 +23,15 @@ onBeforeMount(() => emit('custom-class', {
 onMounted(() => emit('offset-width', sliderList.value.offsetWidth))
 onUpdated(() => emit('offset-width', sliderList.value.offsetWidth))
 
-const { result, loading, error  } = useQuery(categoriesQuery)
-const categories = computed(() => result.value?.categories ?? [])
+fetchValues()
+watch(categoriesStore, () => fetchValues())
+
+function fetchValues() {
+  loading.value = categoriesStore.categories.loading
+  error.value = categoriesStore.categories.error
+    if(loading.value === false && !error.value) 
+      categories.value = categoriesStore.categories.result
+}
 
 </script>
 
