@@ -1,12 +1,11 @@
 <script setup>
 
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import SearchBarVue from './../filters/SearchBar.vue'
 
 const scroll = defineProps({
   wrapperPosition: Number
 })
-const emit = defineEmits(['offset-height'])
 
 const barBox = ref(null)
 
@@ -15,10 +14,7 @@ const isHiddenIcon = ref(false),
 
 const sticky = computed(() => scroll.wrapperPosition >= threshold.value)
 
-onMounted(() => {
-  threshold.value = barBox.value.offsetTop
-  emit('offset-height', barBox.value.offsetHeight)
-})
+onMounted(() => threshold.value = barBox.value.offsetTop)
 
 function hideIcons(bool) {
   isHiddenIcon.value = bool
@@ -28,6 +24,7 @@ function hideIcons(bool) {
 
 <template>
   <div 
+    id="barBox"
     ref="barBox"
     :class="{ 'sticky top-0 z-30 bg-slate-50 text-custom-color-black': sticky }"
     class="flex py-2 pl-6 pr-8">

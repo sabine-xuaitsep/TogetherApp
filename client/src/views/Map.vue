@@ -2,73 +2,39 @@
 
 import { onMounted, onUpdated, ref, watch } from 'vue'
 import { useActivitiesStore } from './../store/activities'
-import Marker from './../components/map/Marker.vue'
+import { useUserStore } from './../store/user'
+import Map from './../components/map/Map.vue'
 
 const activitiesStore = useActivitiesStore()
+const userStore = useUserStore() 
 
-const activities = ref(null), 
-      map = ref(null),
-      markers = ref([])
+const filledHeight = ref(null)
 
-activitiesStore.fetch('activitiesByDist')
+onMounted(() => checkAvailableHeightForMap())
 
-loadActivities()
-watch(activitiesStore, () => {
-  if(!activities.value) loadActivities()
-  if(activities.value) bindMarkersVisibility()  
-})
-
-onMounted(() => {
-  map.value = L.map('map').setView([50.6461441, 5.4977809], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap'
-  }).addTo(map.value)
-})
-
-
-onUpdated(() => {
-  if(activities.value && markers.value.length === 0) loadMarkers()
-  if(activities.value) bindMarkersVisibility()  
-})
-
-function loadActivities() {
-  activities.value = activitiesStore.getFiltered
-  if(activities.value && markers.value.length === 0) loadMarkers()
+function checkAvailableHeightForMap() {
+  const appHeader = document.getElementById('appHeader')
+  filledHeight.value = appHeader.offsetHeight 
+                      + getMargin(appHeader, 'Top') 
+                      + getMargin(appHeader, 'Bottom')
+                      + document.getElementById('barBox').offsetHeight
+                      + document.getElementById('navBar').offsetHeight 
 }
 
-function loadMarkers() {
-  activities.value.forEach((activity) => 
-    markers.value.push({
-      id: activity.id,
-      activity: activity,
-      isShown: false,
-    })
-  )
-}
-
-function bindMarkersVisibility() {
-  markers.value.forEach((marker) => 
-    marker.isShown = 
-      activitiesStore.getFiltered.find((activity) => 
-        activity.id === marker.id
-      ) ? true : false
-  )
+function getMargin(el, pos) {
+  return Number((getComputedStyle(el)[`margin${pos}`]).replace('px', ''))
 }
 
 </script>
 
 <template>
-  <div id="map">
-    <Marker 
-      v-if="map"
-      v-for="marker in markers" 
-      :key="marker.id" 
-      :activity="marker.activity"
-      :isShown="marker.isShown"
-      :map="map"
-    />
-  </div>
+  <Map 
+    v-if="activitiesStore.getActivities && userStore.user.latitude && userStore.user.longitude && filledHeight" 
+    :activities="activitiesStore.getActivities"
+    :height="`calc(100vh - ${filledHeight}px)`"
+    :userLat="userStore.user.latitude" 
+    :userLong="userStore.user.longitude" 
+  />
 </template>
 
 <style scoped>
