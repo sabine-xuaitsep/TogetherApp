@@ -12,7 +12,7 @@ const minLat = lat - (40/100); // south
 const maxLong = long + (40/100); // east
 const minLong = long - (70/100); // west
 
-const demoActivities = [...Array(100)].map((activity) => (
+const demoActivities = [...Array(1000)].map((activity) => (
   {
     title: faker.lorem.sentence(),
     image: faker.image.image(),

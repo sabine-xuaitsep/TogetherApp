@@ -3,7 +3,7 @@
 const { faker } = require('@faker-js/faker/locale/fr_BE');
 const { Category, User  } = require('./../models');
 
-const demoUsers = [...Array(20)].map((user) => (
+const demoUsers = [...Array(100)].map((user) => (
   {
     pseudo: faker.name.findName(),
     email: faker.unique(faker.internet.email),
