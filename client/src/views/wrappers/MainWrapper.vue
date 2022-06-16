@@ -3,6 +3,7 @@
 import { onUpdated, ref  } from 'vue'
 import { useRoute } from 'vue-router'
 import MainTopBarVue from './../../components/bars/MainTopBar.vue'
+import PWAbtnVue from './../../components/PWAbtn.vue'
 
 const wrapper = ref(null)
 const wrapperPosition = ref(null)
@@ -33,7 +34,11 @@ function calcWrapperPosition() {
       <h1 
         id="appHeader"
         class="mt-10 mb-6 ml-6 mr-8 font-bold text-4xl">
-        <router-link :to="{ name: 'home' }">Together</router-link>
+        <router-link :to="{ name: 'home' }">
+          Together
+        </router-link>
+
+        <PWAbtnVue />
       </h1>
     </header>
 

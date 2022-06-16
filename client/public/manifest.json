@@ -1,0 +1,14 @@
+{
+  "short_name": "Together App",
+  "name": "Together App - Share your activities",
+  "icons": [
+    {
+      "src": "/assets/images/logo.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#7abfbe",
+  "display": "standalone"
+}
