@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, watch } from 'vue'
-import { useUserStore } from './../store/user'
+import { useUserStore } from './user'
+import { useCategoriesStore } from './categories'
 import { useQuery, provideApolloClient } from '@vue/apollo-composable'
 import { apolloClient } from './../apolloClient'
 import { activitiesByDateQuery } from './../graphql/activities'
@@ -13,8 +14,8 @@ export const useActivitiesStore = defineStore("activities", {
   state: () => ({
     searchContent: '',
     query: 'activitiesByDist',
-    distance: null,
     order: 'ASC',
+    distance: 300,
     activitiesByDist: {
       result: null,
       loading: null,
@@ -39,8 +40,16 @@ export const useActivitiesStore = defineStore("activities", {
       if(state[state.query].result) {
         const activities = state[state.query].result
         return state.order === 'ASC' 
-          ? activities.filter(activity => state.matchWithSearch(activity)) 
-          : [...activities].reverse().filter(activity => state.matchWithSearch(activity)) 
+          ? activities.filter(activity => 
+              state.matchWithSearch(activity) 
+              && state.matchWithCategories(activity)
+              && state.matchWithDistance(activity)
+            ) 
+          : [...activities].reverse().filter(activity => 
+              state.matchWithSearch(activity) 
+              && state.matchWithCategories(activity)
+              && state.matchWithDistance(activity)
+            ) 
       }
     },
   },
@@ -86,6 +95,15 @@ export const useActivitiesStore = defineStore("activities", {
         })
         return match.includes(true)
       }
+    },
+    matchWithCategories(activity) {
+      const categoriesStore = useCategoriesStore()
+      return categoriesStore.choosenCategories.length === 0
+        ? true 
+        : categoriesStore.choosenCategories.find(id => id === activity.category.id)
+    },
+    matchWithDistance(activity) {
+      return this.distance >= activity.distance
     },
     handleString(str) {
       return str.replace(/[áâàä]/g,'a').replace(/[éêèë]/g,'e')

@@ -10,6 +10,7 @@ export const useCategoriesStore = defineStore("categories", {
       loading: null,
       error: null,
     },
+    choosenCategories: [],
   }),
   getters: {},
   actions: {
