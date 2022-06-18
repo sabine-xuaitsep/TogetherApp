@@ -53,6 +53,7 @@ function fetchValues() {
   </ul>
   
   <router-link 
+    @click="activitiesStore.order = 'ASC'"
     :to="{ name: 'activities', params: { query: query } }"
     class="flex flex-col justify-center mr-6">
     <span class="text-center pb-3">Voir plus</span>
