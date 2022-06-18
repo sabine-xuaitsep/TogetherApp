@@ -60,7 +60,10 @@ watch(activitiesStore, () => {
           {{ activity?.title }}
         </h2>
         <p class="mt-4 text-sm">
-          <time datetime="2022-11-11T12:12:00">{{ new Date(activity?.date).toLocaleDateString('fr-BE', {month: "long", day: "numeric"}) }}, à {{ activity?.time }} 12h12 format!!!</time>
+          <time datetime="2022-11-11T12:12:00">
+            {{ new Date(activity?.date).toLocaleDateString('fr-BE', {month: "long", day: "numeric"}) }}, 
+            à {{ `${activity?.time.split(':')[0]}h${activity?.time.split(':')[1]}` }}
+          </time>
         </p>
         <p class="mt-4 mb-14">
           {{ activity?.description }}
