@@ -1,9 +1,20 @@
 <script setup>
 
+import { useActivitiesStore } from './../../store/activities'
+import { useCategoriesStore } from './../../store/categories'
+
 defineProps({
   activity: Object,
   customClass: String
 })
+
+const categoriesStore = useCategoriesStore(),
+      activitiesStore = useActivitiesStore()
+
+function setCategoryChoice(id) {
+  categoriesStore.choosenCategories = [id] 
+  activitiesStore.order = 'ASC'
+}
 
 </script>
 
@@ -18,9 +29,12 @@ defineProps({
           <img class="object-cover rounded-t-xl" :src="activity.image" alt="Illustration de trail">
         </figure>
 
-        <a href="#category" class="absolute top-3 left-3 z-10 px-2 py-1 bg-slate-50 rounded-lg text-custom-color-dark font-bold">
+        <router-link 
+          @click="setCategoryChoice(activity.category.id)"
+          :to="{ name: 'activities', params: { query: 'activitiesByDist'} }" 
+          class="absolute top-3 left-3 z-10 px-2 py-1 bg-slate-50 rounded-lg text-custom-color-dark font-bold">
           {{ activity.category.name }}
-        </a>
+        </router-link>
         
         <router-link :to="{ name: '404', params: { type: 'bookmarks' } }" class="absolute z-10 top-3 right-3 flex items-center justify-center w-8 h-8 bg-slate-50 rounded-full">
           <svg class="w-4 h-4 text-custom-color-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
