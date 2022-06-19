@@ -1,13 +1,15 @@
 <script setup>
 
 import { onMounted, onBeforeMount, onUpdated, ref, watch } from 'vue'
+import { useActivitiesStore } from './../../store/activities'
 import { useCategoriesStore } from './../../store/categories'
 
 const emit = defineEmits(['offset-width', 'custom-class'])
 
 const sliderList = ref(null)
 
-const categoriesStore = useCategoriesStore()
+const categoriesStore = useCategoriesStore(),
+      activitiesStore = useActivitiesStore()
 
 const categories = ref(null), 
       loading = ref(true),
@@ -33,6 +35,11 @@ function fetchValues() {
       categories.value = categoriesStore.categories.result
 }
 
+function setCategoryChoice(id) {
+  categoriesStore.choosenCategories = [id] 
+  activitiesStore.order = 'ASC'
+}
+
 </script>
 
 <template>
@@ -55,10 +62,13 @@ function fetchValues() {
     <li 
       v-for="category of categories" :key="category.id"
       class="mr-4 text-center text-xs">
-      <a class="block w-16 h-24" href="#category">
+      <router-link 
+        @click="setCategoryChoice(category.id)"
+        :to="{ name: 'activities', params: { query: 'activitiesByDist'} }" 
+        class="block w-16 h-24">
         <div class="mb-2 w-16 h-16 bg-center bg-cover rounded-full shadow-lg shadow-custom-color-dark" :style="{ 'background-image': `url('assets/images/activities/activities_${category.id}.jpg')` }"></div>
         <span>{{ category.name }}</span>
-      </a>
+      </router-link>
     </li>
     <!-- end category link -->
 
