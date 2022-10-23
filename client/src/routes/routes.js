@@ -34,12 +34,12 @@ export default [
     component: SecondWrapper,
     children: [
       {
-        path: "/activity/:id",
+        path: "activity/:id",
         name: "activity",
         component: Activity,
       },
       {
-        path: "/filters",
+        path: "filters",
         name: "filters",
         component: Filters,
       },

@@ -15,7 +15,7 @@ const minLong = long - (70/100); // west
 const demoActivities = [...Array(1000)].map((activity) => (
   {
     title: faker.lorem.sentence(),
-    image: faker.image.image(),
+    image: `https://picsum.photos/640/480?random=${faker.datatype.number({ min: 0, max: 1000 })}`,
     description: faker.lorem.paragraphs(),
     date: faker.date.soon(180),
     time: `${faker.datatype.number({ min: 0, max: 23 })}:${faker.datatype.number({ min: 0, max: 59 })}`,
@@ -50,7 +50,7 @@ module.exports = {
       const number = Math.floor(Math.random() * 11);
       const participants = allUsers.filter((user, i) => i < number);
       // replace some data with async data
-      activity.registeredParticipants = participants.length,
+      activity.registeredParticipants = participants.length;
       activity.categoryId = Math.floor(Math.random() * allCategories.length + 1);
       activity.userId = Math.floor(Math.random() * allUsers.length + 1);
       // create Activity

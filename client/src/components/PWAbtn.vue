@@ -1,10 +1,8 @@
 <script setup>
 
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
-const PWAbtn = ref(null)
-
-const deferredPrompt = ref(null),
+const deferredPrompt = ref(null), 
       isHidden = ref(true)
 
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -30,8 +28,6 @@ function installPWA() {
 <template>
   <a 
     @click="installPWA"
-    ref="PWAbtn"
-    id="PWAbtn"
     :class="{ hidden: isHidden }"
     class="flex items-center font-light text-xs"
     style="padding-top: 3px;"> 
