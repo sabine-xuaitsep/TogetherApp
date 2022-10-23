@@ -3,7 +3,7 @@ import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: 'http://localhost:4000',
+  uri: import.meta.env.VITE_APOLLO_URL,
 })
 
 // Cache implementation
@@ -14,3 +14,4 @@ export const apolloClient = new ApolloClient({
   link: httpLink,
   cache,
 })
+

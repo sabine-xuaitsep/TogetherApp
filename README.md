@@ -27,7 +27,8 @@ SPA with Vue.js, Apollo Client, GraphQL
 * Start your MySQL server
 * Create a database
 * In the `server` directory, rename `.env.example` file to `.env` 
-* Add your configuration to the `.env` file (DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD)
+* Add your configuration to the `.env` file in the `server` directory (DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD)
+* In the `client` directory, rename `.env.example` file to `.env` 
 * Open a terminal, navigate to the `server` directory and run `npm install`
 * Open another terminal, navigate to the `client` directory and run `npm install`
 
@@ -56,7 +57,7 @@ In each terminal:
 * Get the URL of your API
 
 #### Client
-* Change the API URL in `apollo.config.js` and `apolloClient.js`
+* Configure the API URL in the `.env` file (VITE_APOLLO_URL)
 * Run `npm run build` in the root of the `client` directory
 * Copy on your hosting the content of the `dist` directory just created
 * Add an .htaccess file to the root as :

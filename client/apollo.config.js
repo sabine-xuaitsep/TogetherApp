@@ -1,9 +1,11 @@
+require('dotenv').config()
+
 module.exports = {
   client: {
     service: {
       name: 'togetherappclient',
       // URL to the GraphQL API
-      url: 'http://localhost:4000',
+      url: process.env.VITE_APOLLO_URL,
     },
     // Files processed by the extension
     includes: [
